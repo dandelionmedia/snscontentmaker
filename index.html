@@ -358,12 +358,13 @@ async function testApiKey(){
   }
 }
 
-// Gemini API 호출 함수 (모델 자동 선택)
+// Gemini API 호출 함수 (최신 모델 및 v1 버전 적용)
 const MODELS=['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash'];
 async function callGemini(apiKey, prompt){
   let lastErr='';
   for(const model of MODELS){
     try{
+      // v1beta 대신 v1 사용
       const url=`https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`;
       const resp=await fetch(url,{
         method:'POST',
@@ -376,9 +377,23 @@ async function callGemini(apiKey, prompt){
       const data=await resp.json();
       if(data.error){
         lastErr=`[${model}] ${data.error.message||JSON.stringify(data.error)}`;
-        if(data.error.code===400||data.error.code===404) continue; // 모델 없음 → 다음 시도
+        if(data.error.code===400||data.error.code===404) continue; 
         throw new Error(lastErr);
       }
+      if(!data.candidates||!data.candidates[0]){
+        lastErr=`[${model}] 응답이 비어있습니다`;
+        continue;
+      }
+      const txt=data.candidates[0].content.parts.map(x=>x.text||'').join('');
+      return txt;
+    }catch(e){
+      lastErr=e.message||String(e);
+      if(e.message&&(e.message.includes('API key')||e.message.includes('403')||e.message.includes('401'))) throw e;
+      continue;
+    }
+  }
+  throw new Error(lastErr||'모든 모델에서 응답을 받지 못했습니다.');
+}
       if(!data.candidates||!data.candidates[0]){
         lastErr=`[${model}] 응답이 비어있습니다`;
         continue;
