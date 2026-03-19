@@ -6,8 +6,6 @@
 <title>5대 플랫폼 콘텐츠 최적화 생성기 | 유쌤클래스</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<!-- Google Identity Services -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root,[data-theme="light"]{
@@ -20,7 +18,6 @@
   --copied-bg:#f0fff4;--copied-border:#c6f6d5;
   --community-bg:#f8f9fc;--community-border:#eee;
   --link-card-bg:#fff;--link-card-border:#e8e8ec;--link-card-hover:#f5f6fa;
-  --login-bg:rgba(255,255,255,.95);
 }
 [data-theme="dark"]{
   --text:#e8e8f0;--text-secondary:#b0b0c0;--text-light:#9090a8;--text-muted:#707088;
@@ -31,48 +28,41 @@
   --copied-bg:#1a2e1a;--copied-border:#2a5a2a;
   --community-bg:#1a1a28;--community-border:#2a2a3e;
   --link-card-bg:#1e1e2e;--link-card-border:#2e2e42;--link-card-hover:#282840;
-  --login-bg:rgba(30,30,46,.95);
 }
 body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;-webkit-tap-highlight-color:transparent}
-
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
 @keyframes progressAnim{0%{width:5%}50%{width:65%}90%{width:88%}100%{width:95%}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes checkPop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
-@keyframes fadeIn{from{opacity:0}to{opacity:1}}
-@keyframes scaleUp{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
 
 .container{max-width:900px;margin:0 auto;padding:36px 32px 28px;min-height:100vh}
 
-/* ── Login Screen ── */
-.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s ease}
-.login-overlay.hidden{display:none}
-.login-card{background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:48px 40px;text-align:center;max-width:420px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.1);animation:scaleUp .4s ease}
-.login-card .badge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--purple);background:rgba(108,99,255,.1);padding:5px 16px;border-radius:16px;margin-bottom:16px}
-.login-card h2{font-size:24px;font-weight:900;margin-bottom:6px;line-height:1.3}
-.login-card h2 .accent{color:var(--purple);font-size:30px}
-.login-card .login-desc{font-size:13px;color:var(--text-muted);margin-bottom:28px;line-height:1.7}
-.google-signin-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:2px solid var(--border);border-radius:14px;background:var(--card);cursor:pointer;font-family:inherit;font-size:15px;font-weight:700;color:var(--text);transition:all .25s}
-.google-signin-btn:hover{border-color:#4285F4;box-shadow:0 4px 20px rgba(66,133,244,.15);transform:translateY(-2px)}
-.google-signin-btn svg{width:22px;height:22px}
-.login-footer{margin-top:24px;font-size:11px;color:var(--text-muted);line-height:1.6}
-
-/* ── Top Bar ── */
+/* Top Bar */
 .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .home-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);color:var(--text-secondary);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .home-btn:hover{background:var(--card-hover);border-color:var(--purple);color:var(--purple)}
 .home-btn svg{width:16px;height:16px}
 .top-right{display:flex;gap:8px;align-items:center}
+.theme-toggle{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-secondary);transition:all .2s}
+.theme-toggle:hover{border-color:var(--purple);color:var(--purple)}
+
+/* User chip */
 .user-chip{display:inline-flex;align-items:center;gap:7px;padding:5px 14px 5px 5px;border:1.5px solid var(--border);border-radius:24px;background:var(--card);font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s;position:relative}
 .user-chip:hover{border-color:var(--purple)}
 .user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .user-chip .uname{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3}
+.user-chip .avatar-fallback{width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .user-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;box-shadow:var(--shadow-md);padding:8px 0;min-width:180px;z-index:100;display:none}
 .user-menu.open{display:block;animation:fadeUp .2s ease}
 .user-menu-item{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;font-family:inherit;text-align:left}
 .user-menu-item:hover{background:var(--card-hover)}
 .user-menu-item.danger{color:var(--error-text)}
+
+/* Google login btn (inline, not blocking) */
+.google-login-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px 7px 10px;border:1.5px solid var(--border);border-radius:24px;background:var(--card);font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s}
+.google-login-btn:hover{border-color:#4285F4;color:#4285F4;background:rgba(66,133,244,.04)}
+.google-login-btn svg{width:18px;height:18px;flex-shrink:0}
 
 /* API Key Panel */
 .api-panel{overflow:hidden;transition:all .35s ease;max-height:0;opacity:0;margin-bottom:0}
@@ -87,9 +77,6 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .api-panel-save{padding:10px 16px;border:none;border-radius:10px;background:#4285F4;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
 .api-panel-note{font-size:10.5px;color:var(--text-muted);margin-top:8px;line-height:1.5}
 .api-panel-note a{color:#4285F4}
-
-.theme-toggle{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-secondary);transition:all .2s}
-.theme-toggle:hover{border-color:var(--purple);color:var(--purple)}
 
 /* Steps */
 .steps-wrap{margin-bottom:28px}
@@ -117,7 +104,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .platform-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px 12px 24px;background:var(--card);border:2.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1)}
 .platform-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
 .platform-card.selected{transform:translateY(-5px)}
-.platform-card .check-circle{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;opacity:0;transform:scale(0);transition:all .3s}
+.platform-card .check-circle{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;opacity:0;transform:scale(0)}
 .platform-card.selected .check-circle{opacity:1;animation:checkPop .4s ease forwards}
 .platform-card .p-icon-wrap{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;transition:transform .3s}
 .platform-card:hover .p-icon-wrap{transform:scale(1.08)}
@@ -125,7 +112,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .platform-card .p-name{font-size:13px;font-weight:800;text-align:center}
 .platform-card .p-desc{font-size:11px;color:var(--text-muted);font-weight:500;text-align:center}
 
-/* Step 2 */
+/* Step2 */
 .selected-platform-badge{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
 .sp-badge{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:24px;font-size:14px;font-weight:700;color:#fff}
 .sp-badge svg{width:16px;height:16px}
@@ -142,14 +129,13 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 /* Loading */
 .loading{text-align:center;padding:56px 20px;animation:fadeUp .4s ease}
 .spinner-wrap{position:relative;width:56px;height:56px;margin:0 auto 20px}
-.spinner-ring{width:56px;height:56px;border:4px solid var(--spinner-track);border-radius:50%;animation:spin .75s linear infinite;position:absolute;top:0;left:0}
+.spinner-ring{width:56px;height:56px;border:4px solid var(--spinner-track);border-radius:50%;animation:spin .75s linear infinite;position:absolute}
 .spinner-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
 .spinner-icon svg{width:24px;height:24px}
 .loading-text{font-size:16px;font-weight:600;color:var(--text-secondary);margin-bottom:16px}
 .loading-dots{animation:pulse 1s infinite}
 .progress-bar{max-width:320px;height:4px;background:var(--progress-track);border-radius:2px;margin:0 auto;overflow:hidden}
 .progress-fill{height:100%;border-radius:2px}
-
 .error-box{padding:16px 22px;background:var(--error-bg);color:var(--error-text);border-radius:12px;font-size:14px;border:1px solid var(--error-border);margin-bottom:20px}
 
 /* Results */
@@ -161,9 +147,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .rph-actions{margin-left:auto;display:flex;gap:8px}
 .new-btn{padding:9px 18px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--text-secondary);transition:all .2s;white-space:nowrap}
 .new-btn:hover{background:var(--card-hover);border-color:var(--purple);color:var(--purple)}
-.section{margin-bottom:32px}
-.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
-.section-title{font-size:17px;font-weight:800;margin:0}
+.section{margin-bottom:32px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title{font-size:17px;font-weight:800;margin:0}
 .titles-list{display:flex;flex-direction:column;gap:10px}
 .title-card{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--card);border-radius:12px;border:1px solid var(--border-light);border-left:4px solid var(--border);cursor:pointer;transition:all .2s}
 .title-card:hover{box-shadow:0 2px 14px rgba(0,0,0,.06)}
@@ -176,8 +160,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .kw-wrap{display:flex;flex-wrap:wrap;gap:10px}
 .kw{display:inline-block;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid transparent}
 .copy-btn{padding:8px 16px;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--text-secondary);transition:all .2s;white-space:nowrap}
-.copy-btn:hover{background:var(--card-hover)}
-.copy-btn.copied{background:var(--copied-bg);border-color:var(--copied-border);color:var(--naver)}
+.copy-btn:hover{background:var(--card-hover)}.copy-btn.copied{background:var(--copied-bg);border-color:var(--copied-border);color:var(--naver)}
 .bottom-actions{display:flex;gap:12px;justify-content:center;padding-top:20px;border-top:1px solid var(--border-light);margin-top:24px}
 .copy-all-btn{padding:14px 36px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .copy-all-btn:hover{opacity:.9;transform:translateY(-1px)}
@@ -192,72 +175,57 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .community-link .cl-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;flex-shrink:0}
 .footer{text-align:center;margin-top:28px;padding:22px 0;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light)}
 
-/* Tablet */
 @media(max-width:768px){.container{padding:24px 20px}.header h1{font-size:26px}.header h1 .accent{font-size:34px}.platform-grid{grid-template-columns:repeat(3,1fr);gap:10px}.platform-card{padding:24px 10px 20px}.platform-card .p-icon-wrap{width:52px;height:52px}.platform-card .p-icon-wrap svg{width:28px;height:28px}.step-line{width:48px}.step-labels{gap:38px}.result-platform-header{flex-wrap:wrap}.rph-actions{margin-left:0;margin-top:8px;width:100%}}
-
-/* Mobile */
 @media(max-width:480px){
-  .container{padding:16px 14px}
-  .login-card{padding:32px 24px;border-radius:20px}.login-card h2{font-size:20px}.login-card h2 .accent{font-size:26px}.login-card .login-desc{font-size:12px;margin-bottom:22px}.google-signin-btn{padding:12px 24px;font-size:14px;border-radius:12px}.login-footer{font-size:10px}
-  .home-btn{padding:8px 12px;font-size:12px;gap:4px;border-radius:8px}.home-btn svg{width:14px;height:14px}
-  .top-right{gap:5px}.theme-toggle{padding:7px 10px;font-size:11px;gap:5px;border-radius:8px}
-  .user-chip{padding:4px 10px 4px 4px;font-size:11px}.user-chip img{width:24px;height:24px}.user-chip .uname{max-width:70px}
-  .api-panel-inner{padding:12px 14px}.api-panel-row{flex-direction:column;gap:6px}.api-panel-input{font-size:12px;padding:9px 12px}
-  .steps-wrap{margin-bottom:20px}.step-dot{width:30px;height:30px;font-size:12px}.step-line{width:28px}.step-labels{gap:18px;margin-top:5px}.step-label{font-size:10px}
-  .header{margin-bottom:20px}.badge{font-size:10px;padding:5px 14px;margin-bottom:10px}.header h1{font-size:22px}.header h1 .accent{font-size:28px}.header p{font-size:12px}.header p br{display:none}
-  .step-title{font-size:16px;margin-bottom:16px}.platform-grid{grid-template-columns:repeat(2,1fr);gap:10px}.platform-grid .platform-card:nth-child(5){grid-column:1/-1;max-width:52%;margin:0 auto}.platform-card{padding:22px 10px 18px;gap:7px;border-width:2px;border-radius:14px}.platform-card .p-icon-wrap{width:48px;height:48px;border-radius:14px}.platform-card .p-icon-wrap svg{width:26px;height:26px}.platform-card .p-name{font-size:12px}.platform-card .p-desc{font-size:9.5px}
-  .sp-badge{padding:7px 14px;font-size:12px}.sp-change{font-size:11px}.input-wrapper{border-radius:12px;padding:3px 3px 3px 12px;border-width:2px}.topic-input{font-size:14px;padding:12px 10px}.gen-btn{padding:12px 18px;font-size:14px;border-radius:10px}
-  .loading{padding:36px 16px}.spinner-wrap{width:46px;height:46px}.spinner-ring{width:46px;height:46px;border-width:3px}.loading-text{font-size:13px}.progress-bar{max-width:220px;height:3px}
-  .result-platform-header{flex-direction:column;text-align:center;gap:8px}.rph-actions{justify-content:center;gap:6px;width:100%}.new-btn{padding:8px 14px;font-size:12px;flex:1;text-align:center}
-  .section{margin-bottom:22px}.section-title{font-size:14px}.title-card{padding:12px;gap:10px;border-radius:10px}.title-num{width:24px;height:24px;font-size:11px}.title-text{font-size:13px}.sel-badge{font-size:9px;padding:3px 8px}
-  .post-box{padding:16px;border-radius:12px;max-height:400px}.post-text{font-size:13px;line-height:1.85}
-  .kw-wrap{gap:6px}.kw{padding:6px 11px;font-size:11.5px;border-radius:16px}
-  .copy-btn{padding:6px 12px;font-size:11.5px;border-radius:8px}.bottom-actions{padding-top:14px;margin-top:16px}.copy-all-btn{padding:12px 24px;font-size:14px;width:100%}
-  .community{margin-top:32px;padding:24px 16px;border-radius:14px}.community-title{font-size:14px}.community-sub{font-size:11px;margin-bottom:16px}.community-links{gap:7px}.community-link{padding:8px 12px;font-size:11px;gap:5px}.footer{margin-top:20px;padding:16px 0;font-size:10.5px}
+.container{padding:16px 14px}.home-btn{padding:8px 12px;font-size:12px;gap:4px;border-radius:8px}.home-btn svg{width:14px;height:14px}.top-right{gap:5px}.theme-toggle{padding:7px 10px;font-size:11px;gap:5px;border-radius:8px}.google-login-btn{padding:6px 12px 6px 8px;font-size:11px;border-radius:20px}.google-login-btn svg{width:16px;height:16px}.user-chip{padding:4px 10px 4px 4px;font-size:11px}.user-chip img,.user-chip .avatar-fallback{width:24px;height:24px;font-size:10px}.user-chip .uname{max-width:70px}.api-panel-inner{padding:12px 14px}.api-panel-row{flex-direction:column;gap:6px}.api-panel-input{font-size:12px;padding:9px 12px}
+.steps-wrap{margin-bottom:20px}.step-dot{width:30px;height:30px;font-size:12px}.step-line{width:28px}.step-labels{gap:18px;margin-top:5px}.step-label{font-size:10px}
+.header{margin-bottom:20px}.badge{font-size:10px;padding:5px 14px;margin-bottom:10px}.header h1{font-size:22px}.header h1 .accent{font-size:28px}.header p{font-size:12px}.header p br{display:none}
+.step-title{font-size:16px;margin-bottom:16px}.platform-grid{grid-template-columns:repeat(2,1fr);gap:10px}.platform-grid .platform-card:nth-child(5){grid-column:1/-1;max-width:52%;margin:0 auto}.platform-card{padding:22px 10px 18px;gap:7px;border-width:2px;border-radius:14px}.platform-card .p-icon-wrap{width:48px;height:48px;border-radius:14px}.platform-card .p-icon-wrap svg{width:26px;height:26px}.platform-card .p-name{font-size:12px}.platform-card .p-desc{font-size:9.5px}
+.sp-badge{padding:7px 14px;font-size:12px}.sp-change{font-size:11px}.input-wrapper{border-radius:12px;padding:3px 3px 3px 12px;border-width:2px}.topic-input{font-size:14px;padding:12px 10px}.gen-btn{padding:12px 18px;font-size:14px;border-radius:10px}
+.loading{padding:36px 16px}.spinner-wrap{width:46px;height:46px}.spinner-ring{width:46px;height:46px;border-width:3px}.loading-text{font-size:13px}.progress-bar{max-width:220px;height:3px}
+.result-platform-header{flex-direction:column;text-align:center;gap:8px}.rph-actions{justify-content:center;gap:6px;width:100%}.new-btn{padding:8px 14px;font-size:12px;flex:1;text-align:center}
+.section{margin-bottom:22px}.section-title{font-size:14px}.title-card{padding:12px;gap:10px;border-radius:10px}.title-num{width:24px;height:24px;font-size:11px}.title-text{font-size:13px}.sel-badge{font-size:9px;padding:3px 8px}
+.post-box{padding:16px;border-radius:12px;max-height:400px}.post-text{font-size:13px;line-height:1.85}.kw-wrap{gap:6px}.kw{padding:6px 11px;font-size:11.5px;border-radius:16px}
+.copy-btn{padding:6px 12px;font-size:11.5px;border-radius:8px}.bottom-actions{padding-top:14px;margin-top:16px}.copy-all-btn{padding:12px 24px;font-size:14px;width:100%}
+.community{margin-top:32px;padding:24px 16px;border-radius:14px}.community-title{font-size:14px}.community-sub{font-size:11px;margin-bottom:16px}.community-links{gap:7px}.community-link{padding:8px 12px;font-size:11px;gap:5px}.footer{margin-top:20px;padding:16px 0;font-size:10.5px}
 }
 @media(min-width:1200px){.container{max-width:960px;padding:48px 40px 36px}.header h1{font-size:36px}.header h1 .accent{font-size:48px}.header p{font-size:15px}.platform-card{padding:34px 16px 28px}.platform-card .p-icon-wrap{width:68px;height:68px;border-radius:20px}.platform-card .p-icon-wrap svg{width:36px;height:36px}}
 </style>
 </head>
 <body>
-
-<!-- ══ LOGIN SCREEN ══ -->
-<div class="login-overlay" id="loginOverlay">
-  <div class="login-card">
-    <div class="badge">유쌤AI콘텐츠마케팅최적화도구</div>
-    <h2><span class="accent">5</span>대 플랫폼<br>콘텐츠 최적화 생성기</h2>
-    <p class="login-desc">구글 계정으로 로그인하면<br>AI가 맞춤 콘텐츠를 자동으로 생성해드립니다</p>
-    <button class="google-signin-btn" onclick="doGoogleLogin()">
-      <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-      Google로 로그인
-    </button>
-    <div class="login-footer">로그인 시 Google AI의 무료 API를 사용합니다<br>유료 요금제 사용자는 더 빠른 속도를 이용할 수 있습니다</div>
-  </div>
-</div>
-
-<!-- ══ MAIN APP ══ -->
 <div class="container">
+
   <div class="top-bar">
     <button class="home-btn" onclick="goHome()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>홈</button>
     <div class="top-right">
+      <!-- Google Login Button (shown when not logged in) -->
+      <button class="google-login-btn" id="googleLoginBtn" onclick="doGoogleLogin()">
+        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        Google 로그인
+      </button>
+      <!-- User Chip (shown when logged in) -->
       <div class="user-chip" id="userChip" onclick="toggleUserMenu()" style="display:none">
-        <img id="userAvatar" src="" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span id="userAvatarFallback" style="display:none;width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;font-size:13px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0">👤</span><span class="uname" id="userName"></span>
+        <img id="userAvatar" src="" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="display:none">
+        <span class="avatar-fallback" id="userAvatarFallback">👤</span>
+        <span class="uname" id="userName"></span>
         <div class="user-menu" id="userMenu">
-          <button class="user-menu-item" onclick="toggleMyKeyPanel()">🔑 내 API 키 설정</button>
-          <button class="user-menu-item danger" onclick="doLogout()">🚪 로그아웃</button>
+          <button class="user-menu-item" onclick="event.stopPropagation();toggleMyKeyPanel()">🔑 내 API 키 설정</button>
+          <button class="user-menu-item danger" onclick="event.stopPropagation();doLogout()">🚪 로그아웃</button>
         </div>
       </div>
       <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span><span id="themeLabel">다크모드</span></button>
     </div>
   </div>
 
+  <!-- Optional: My API Key Panel -->
   <div class="api-panel" id="apiPanel">
     <div class="api-panel-inner">
       <div class="api-panel-head"><label>🔑 내 Google Gemini API Key (선택)</label><a href="https://aistudio.google.com/apikey" target="_blank">발급받기 →</a></div>
       <div class="api-panel-row">
-        <input type="password" id="myApiKeyInput" class="api-panel-input" placeholder="AIzaSy... (유료 요금제용)">
+        <input type="password" id="myApiKeyInput" class="api-panel-input" placeholder="AIzaSy... (유료 요금제용, 선택사항)">
         <button class="api-panel-save" onclick="saveMyKey()">저장</button>
       </div>
-      <div class="api-panel-note">💡 유료 요금제 사용 시 입력하면 더 빠른 속도와 높은 사용량 이용 가능 · 입력하지 않으면 기본 무료 키 사용</div>
+      <div class="api-panel-note">💡 유료 요금제 사용 시 입력하면 더 빠른 속도 이용 가능 · 입력하지 않으면 기본 무료 키 사용</div>
       <div id="myApiStatus"></div>
     </div>
   </div>
@@ -283,7 +251,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
       <a class="community-link" href="https://www.yussamclass.com/" target="_blank"><span class="cl-icon" style="background:#6C63FF22;color:#6C63FF;">🏠</span>홈페이지</a>
       <a class="community-link" href="https://blog.naver.com/mindlemedia" target="_blank"><span class="cl-icon" style="background:#03C75A18;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#03C75A"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg></span>블로그</a>
       <a class="community-link" href="https://www.youtube.com/c/kyseong3" target="_blank"><span class="cl-icon" style="background:#FF000015;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></span>유튜브</a>
-      <a class="community-link" href="https://www.instagram.com/yussam_class" target="_blank"><span class="cl-icon" style="background:#E1306C15;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg></span>인스타그램</a>
+      <a class="community-link" href="https://www.instagram.com/yussam_class" target="_blank"><span class="cl-icon" style="background:#E1306C15;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg></span>인스타그램</a>
       <a class="community-link" href="https://open.kakao.com/o/g8m4i9ve" target="_blank"><span class="cl-icon" style="background:#FEE50020;">💬</span>오픈톡방</a>
       <a class="community-link" href="https://www.facebook.com/dandelionmedia1004" target="_blank"><span class="cl-icon" style="background:#1877F215;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg></span>페이스북</a>
       <a class="community-link" href="https://www.threads.com/@yussam_class" target="_blank"><span class="cl-icon" style="background:#00000012;color:var(--text);"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.789.763c-1.07-3.872-3.6-5.476-7.533-5.504-2.626.017-4.576.87-5.795 2.535-1.078 1.47-1.674 3.6-1.699 6.633.025 3.037.622 5.168 1.7 6.636 1.22 1.665 3.168 2.516 5.793 2.534 2.06-.018 3.6-.492 4.71-1.448.976-.842 1.593-2.06 1.593-3.725 0-1.077-.32-1.917-.952-2.497-.562-.516-1.354-.823-2.348-.914a7.5 7.5 0 01-.108 1.6c-.235 1.117-.736 2.005-1.449 2.568-.654.516-1.488.78-2.478.78-1.175 0-2.139-.408-2.866-1.213-.7-.776-1.055-1.824-1.055-3.117 0-1.752.545-3.177 1.623-4.237 1.003-.986 2.342-1.487 3.98-1.487.87 0 1.668.15 2.373.448l-.12 2.67a4.75 4.75 0 00-2.14-.477c-.987 0-1.758.322-2.293.957-.486.577-.733 1.387-.733 2.407 0 .751.172 1.333.511 1.73.31.363.75.547 1.306.547.68 0 1.2-.262 1.547-.78.303-.452.482-1.094.533-1.907.025-.393.016-.8-.025-1.213l.067-.474c1.605.103 2.857.57 3.72 1.39.962.916 1.45 2.2 1.45 3.82 0 2.351-.88 4.186-2.617 5.453C17.555 23.268 15.267 23.98 12.186 24z"/></svg></span>쓰레드</a>
@@ -292,27 +260,29 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
   <div class="footer"><span>유쌤클래스 · AI콘텐츠마케팅연구소</span><span style="margin:0 6px">·</span><span>Powered by 친절한유성쌤</span></div>
 </div>
 
+<!-- Google Identity Services (loaded async) -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <script>
 /*
- ┌────────────────────────────────────────────────────────────────┐
- │  ★ 관리자 설정 (2곳만 수정하면 됩니다)                        │
- │                                                                │
- │  1. DEFAULT_API_KEY : 무료 사용자용 Google Gemini API 키       │
- │     → https://aistudio.google.com/apikey 에서 발급             │
- │                                                                │
- │  2. GOOGLE_CLIENT_ID : 구글 로그인용 OAuth 클라이언트 ID       │
- │     → https://console.cloud.google.com/apis/credentials        │
- │     → OAuth 2.0 클라이언트 ID 만들기 (웹 애플리케이션)         │
- │     → 승인된 자바스크립트 원본에 사이트 주소 추가              │
- └────────────────────────────────────────────────────────────────┘
+ ┌──────────────────────────────────────────────────────────────┐
+ │  ★ 관리자 설정 (아래 2곳만 수정하세요)                       │
+ │                                                              │
+ │  1. DEFAULT_API_KEY : 무료 사용자용 Google Gemini API 키     │
+ │     → https://aistudio.google.com/apikey 에서 무료 발급      │
+ │                                                              │
+ │  2. GOOGLE_CLIENT_ID : 구글 로그인용 (선택사항)              │
+ │     → 설정 안 하면 로그인 없이 바로 사용 가능                │
+ │     → https://console.cloud.google.com/apis/credentials      │
+ └──────────────────────────────────────────────────────────────┘
 */
-const DEFAULT_API_KEY = 'AIzaSyD4xv4UfylN5jYE-6cCOisnPd8or9a3OVI';
-const GOOGLE_CLIENT_ID = '892450271971-2h9c4nbdpqdk5f81lmft7us39m9f097i.apps.googleusercontent.com';
+const DEFAULT_API_KEY = 'YOUR_API_KEY_HERE';
+const GOOGLE_CLIENT_ID = '';  // 비워두면 Google 로그인 버튼 숨김
 
-// ── Icons (compressed) ──
-const ICONS={naver:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>',facebook:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
-const IC16={naver:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>',facebook:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
-const ICLG={naver:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#03C75A"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF5A4A"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>',facebook:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
+// ── Icons ──
+const ICONS={naver:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>',facebook:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
+const IC16={naver:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2z"/></svg>',facebook:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
+const ICLG={naver:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#03C75A"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF5A4A"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2z"/></svg>',facebook:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
 
 const P=[{id:"naver",name:"네이버 블로그",color:"#03C75A",desc:"검색 최적화 · SEO",ph:"예: AI 활용 블로그 마케팅 전략"},{id:"tistory",name:"티스토리",color:"#FF5A4A",desc:"구글 SEO · 롱폼",ph:"예: 챗GPT 프롬프트 작성법 가이드"},{id:"instagram",name:"인스타그램",color:"#E1306C",desc:"해시태그 · 릴스",ph:"예: 요즘 핫한 카페 투어 브이로그"},{id:"facebook",name:"페이스북",color:"#1877F2",desc:"공유 · 커뮤니티",ph:"예: 직장인을 위한 생산성 꿀팁"},{id:"youtube",name:"유튜브",color:"#FF0000",desc:"영상 SEO · 설명란",ph:"예: AI 영상 편집 도구 비교 리뷰"}];
 const PR={naver:'[네이버 블로그] 제목: 핵심 키워드 앞배치, 30자 이내. 본문: 2000자 이상, 소제목, ~입니다체, 이모지, 줄바꿈. 키워드 10개.',tistory:'[티스토리] 제목: 구글SEO, 50자 이내. 본문: 2500자 이상, H2/H3 구조, 롱폼. 키워드 10개.',instagram:'[인스타그램] 제목: 짧은 후킹문구+이모지. 캡션: 2200자 이내, 줄바꿈, 스토리텔링, CTA, 이모지. 해시태그 15개(#포함, 대+중+소).',facebook:'[페이스북] 제목: 공유유도 감성/호기심. 본문: 공감 스토리텔링, 질문CTA, 공유유도. 키워드 10개.',youtube:'[유튜브] 제목: CTR높은 60자이내, 숫자/감정. 설명란: 타임스탬프, 구독CTA, 링크안내. 태그 10개.'};
@@ -325,76 +295,52 @@ function toggleTheme(){const h=document.documentElement,d=h.getAttribute('data-t
 function loadTheme(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeIcon').textContent='☀️';document.getElementById('themeLabel').textContent='라이트모드';}}catch{}}
 
 // ── Google Login ──
-function handleCredentialResponse(response){
-  const base64Url=response.credential.split('.')[1];
-  const base64=base64Url.replace(/-/g,'+').replace(/_/g,'/');
+function decodeJwt(token){
+  const base64=token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
   const raw=atob(base64);
-  const utf8=decodeURIComponent(Array.from(raw).map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join(''));
-  const payload=JSON.parse(utf8);
-  loggedInUser={name:payload.name,email:payload.email,picture:payload.picture};
+  return JSON.parse(decodeURIComponent(Array.from(raw).map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+}
+function handleCredentialResponse(response){
+  const p=decodeJwt(response.credential);
+  loggedInUser={name:p.name||p.email,email:p.email,picture:p.picture};
   try{localStorage.setItem('guser',JSON.stringify(loggedInUser));}catch{}
   showLoggedIn();
 }
 function doGoogleLogin(){
-  if(GOOGLE_CLIENT_ID==='YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com'){
-    alert('⚠️ 관리자가 Google Client ID를 아직 설정하지 않았습니다.\nindex.html 파일의 GOOGLE_CLIENT_ID를 설정해주세요.');
-    return;
-  }
-  google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleCredentialResponse});
-  google.accounts.id.prompt((n)=>{
-    if(n.isNotDisplayed()||n.isSkippedMoment()){
-      google.accounts.id.renderButton(document.createElement('div'),{});
-      // Fallback: trigger popup
-      google.accounts.id.prompt();
-    }
-  });
+  if(!GOOGLE_CLIENT_ID){alert('관리자가 Google 로그인을 아직 설정하지 않았습니다.\n로그인 없이 바로 사용하실 수 있습니다!');return;}
+  try{
+    google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleCredentialResponse,auto_select:true});
+    google.accounts.id.prompt();
+  }catch(e){alert('Google 로그인을 불러오는 중 오류가 발생했습니다.\n로그인 없이 바로 사용하실 수 있습니다!');}
 }
 function showLoggedIn(){
-  document.getElementById('loginOverlay').classList.add('hidden');
-  document.getElementById('userChip').style.display='inline-flex';
-  const avatarEl=document.getElementById('userAvatar');
-  const fallbackEl=document.getElementById('userAvatarFallback');
-  if(loggedInUser.picture){
-    avatarEl.src=loggedInUser.picture;
-    avatarEl.style.display='';
-    fallbackEl.style.display='none';
-  }else{
-    avatarEl.style.display='none';
-    fallbackEl.style.display='flex';
-    fallbackEl.textContent=loggedInUser.name?loggedInUser.name.charAt(0):'👤';
-  }
+  document.getElementById('googleLoginBtn').style.display='none';
+  const chip=document.getElementById('userChip');chip.style.display='inline-flex';
+  const av=document.getElementById('userAvatar'),fb=document.getElementById('userAvatarFallback');
+  if(loggedInUser.picture){av.src=loggedInUser.picture;av.style.display='';fb.style.display='none';}
+  else{av.style.display='none';fb.style.display='flex';fb.textContent=(loggedInUser.name||'U').charAt(0);}
   document.getElementById('userName').textContent=loggedInUser.name||loggedInUser.email||'사용자';
 }
 function doLogout(){
-  loggedInUser=null;
-  try{localStorage.removeItem('guser');}catch{}
-  document.getElementById('loginOverlay').classList.remove('hidden');
+  loggedInUser=null;try{localStorage.removeItem('guser');}catch{}
+  document.getElementById('googleLoginBtn').style.display='inline-flex';
   document.getElementById('userChip').style.display='none';
   document.getElementById('userMenu').classList.remove('open');
-  goHome();
+  document.getElementById('apiPanel').classList.remove('open');
 }
-function toggleUserMenu(){
-  const m=document.getElementById('userMenu');
-  m.classList.toggle('open');
-}
-function toggleMyKeyPanel(){
-  document.getElementById('apiPanel').classList.toggle('open');
-  document.getElementById('userMenu').classList.remove('open');
-}
+function toggleUserMenu(){document.getElementById('userMenu').classList.toggle('open');}
+function toggleMyKeyPanel(){document.getElementById('apiPanel').classList.toggle('open');document.getElementById('userMenu').classList.remove('open');}
 
-// ── My API Key ──
-function getActiveKey(){const mk=document.getElementById('myApiKeyInput').value.trim()||loadMyKey();return mk||DEFAULT_API_KEY;}
+// ── API Key ──
+function getActiveKey(){const mk=(document.getElementById('myApiKeyInput').value.trim())||loadMyKey();return mk||DEFAULT_API_KEY;}
 function loadMyKey(){try{return localStorage.getItem('my_gemini_key')||'';}catch{return '';}}
-function saveMyKey(){const k=document.getElementById('myApiKeyInput').value.trim();if(!k){showMyStatus('⚠️ API 키를 입력해주세요','#c53030');return;}try{localStorage.setItem('my_gemini_key',k);showMyStatus('✅ 저장 완료! 내 API 키가 적용됩니다','#03C75A');}catch{showMyStatus('⚠️ 저장 실패','#c53030');}}
-function showMyStatus(msg,c){const e=document.getElementById('myApiStatus');e.innerHTML=`<div style="font-size:11px;font-weight:600;margin-top:6px;color:${c}">${msg}</div>`;setTimeout(()=>e.innerHTML='',3000);}
+function saveMyKey(){const k=document.getElementById('myApiKeyInput').value.trim();if(!k){showMyStatus('⚠️ 키를 입력해주세요','#c53030');return;}try{localStorage.setItem('my_gemini_key',k);showMyStatus('✅ 저장 완료!','#03C75A');}catch{showMyStatus('⚠️ 저장 실패','#c53030');}}
+function showMyStatus(m,c){const e=document.getElementById('myApiStatus');e.innerHTML=`<div style="font-size:11px;font-weight:600;margin-top:6px;color:${c}">${m}</div>`;setTimeout(()=>e.innerHTML='',3000);}
 
 // ── Steps ──
 function setStep(n){for(let i=1;i<=3;i++){const d=document.getElementById('dot'+i),l=document.getElementById('label'+i);d.classList.remove('active','done');l.classList.remove('active','done');if(i<n){d.classList.add('done');l.classList.add('done');d.textContent='✓';}else if(i===n){d.classList.add('active');l.classList.add('active');d.textContent=i;}else d.textContent=i;}for(let i=1;i<=2;i++)document.getElementById('line'+i).classList.toggle('active',i<n);document.getElementById('step1').style.display=n===1?'block':'none';document.getElementById('step2').style.display=n===2?'block':'none';document.getElementById('step3').style.display=n===3?'block':'none';document.getElementById('loadingArea').style.display='none';document.getElementById('errorBox').style.display='none';}
-
 function renderGrid(){document.getElementById('platformGrid').innerHTML=P.map(p=>`<div class="platform-card" id="pc-${p.id}" onclick="pick('${p.id}')"><div class="check-circle" style="background:${p.color}">✓</div><div class="p-icon-wrap" style="background:${p.color}">${ICONS[p.id]}</div><div class="p-name">${p.name}</div><div class="p-desc">${p.desc}</div></div>`).join('');}
-
 function pick(id){sp=P.find(p=>p.id===id);document.querySelectorAll('.platform-card').forEach(el=>{el.classList.remove('selected');el.style.borderColor='var(--border)';el.style.boxShadow='none';});const c=document.getElementById('pc-'+id);c.classList.add('selected');c.style.borderColor=sp.color;c.style.boxShadow=`0 8px 28px ${sp.color}25`;setTimeout(()=>{setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${sp.color}">${IC16[sp.id]} ${sp.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=sp.ph;document.getElementById('genBtn').style.background=sp.color;setTimeout(()=>document.getElementById('topicInput').focus(),100);},300);}
-
 function goHome(){sp=null;rd=null;sti=0;ct='';document.getElementById('topicInput').value='';setStep(1);renderGrid();window.scrollTo({top:0,behavior:'smooth'});}
 
 // ── Generate ──
@@ -402,7 +348,7 @@ async function generate(){
   const topic=document.getElementById('topicInput').value.trim();
   if(!topic){alert('주제를 입력해주세요!');return;}
   const apiKey=getActiveKey();
-  if(!apiKey||apiKey==='YOUR_API_KEY_HERE'){alert('⚠️ API 키가 설정되지 않았습니다.\n상단 프로필 → [🔑 내 API 키 설정]에서 직접 입력하거나,\n관리자에게 문의해주세요.');return;}
+  if(!apiKey||apiKey==='YOUR_API_KEY_HERE'){alert('⚠️ API 키가 설정되지 않았습니다.\n\n방법 1: 관리자에게 문의하세요\n방법 2: 우측 상단 프로필 → [🔑 내 API 키 설정]에서 직접 입력');return;}
   ct=topic;const p=sp,btn=document.getElementById('genBtn');btn.disabled=true;btn.textContent='생성 중...';
   document.getElementById('step2').style.display='none';const la=document.getElementById('loadingArea');la.style.display='block';
   document.getElementById('spinnerRing').style.borderTopColor=p.color;
@@ -433,16 +379,19 @@ function cK(b){cp(fmtKw(rd.keywords),b);}
 function copyAll(b){const p=sp,d=rd,kwL=p.id==='instagram'?'해시태그':'키워드';let c=`[${p.name}]\n\n📌 선택된 제목: ${d.titles[sti]}\n\n--- 전체 제목 후보 ---\n`;d.titles.forEach((t,i)=>c+=`${i+1}. ${t}\n`);c+=`\n--- 본문 ---\n${d.post}\n\n--- ${kwL} ---\n${fmtKw(d.keywords)}`;cp(c,b);}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 
-// Close menu on outside click
+// Close menus on outside click
 document.addEventListener('click',e=>{if(!e.target.closest('.user-chip'))document.getElementById('userMenu')?.classList.remove('open');});
 
 // ── Init ──
 document.addEventListener('DOMContentLoaded',()=>{
   renderGrid();loadTheme();
-  // Load saved my-key
+  // Load saved API key
   const mk=loadMyKey();if(mk)document.getElementById('myApiKeyInput').value=mk;
-  // Check saved login
+  // Restore login session
   try{const saved=localStorage.getItem('guser');if(saved){loggedInUser=JSON.parse(saved);showLoggedIn();}}catch{}
+  // Hide Google login button if no client ID configured
+  if(!GOOGLE_CLIENT_ID)document.getElementById('googleLoginBtn').style.display='none';
+  // Keyboard
   document.getElementById('topicInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();generate();}});
 });
 </script>
