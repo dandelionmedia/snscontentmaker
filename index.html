@@ -66,8 +66,8 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .top-right{display:flex;gap:8px;align-items:center}
 .user-chip{display:inline-flex;align-items:center;gap:7px;padding:5px 14px 5px 5px;border:1.5px solid var(--border);border-radius:24px;background:var(--card);font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s;position:relative}
 .user-chip:hover{border-color:var(--purple)}
-.user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover}
-.user-chip .uname{max-width:80px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0}
+.user-chip .uname{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3}
 .user-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;box-shadow:var(--shadow-md);padding:8px 0;min-width:180px;z-index:100;display:none}
 .user-menu.open{display:block;animation:fadeUp .2s ease}
 .user-menu-item{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;font-family:inherit;text-align:left}
@@ -201,7 +201,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
   .login-card{padding:32px 24px;border-radius:20px}.login-card h2{font-size:20px}.login-card h2 .accent{font-size:26px}.login-card .login-desc{font-size:12px;margin-bottom:22px}.google-signin-btn{padding:12px 24px;font-size:14px;border-radius:12px}.login-footer{font-size:10px}
   .home-btn{padding:8px 12px;font-size:12px;gap:4px;border-radius:8px}.home-btn svg{width:14px;height:14px}
   .top-right{gap:5px}.theme-toggle{padding:7px 10px;font-size:11px;gap:5px;border-radius:8px}
-  .user-chip{padding:4px 10px 4px 4px;font-size:11px}.user-chip img{width:24px;height:24px}.user-chip .uname{max-width:60px}
+  .user-chip{padding:4px 10px 4px 4px;font-size:11px}.user-chip img{width:24px;height:24px}.user-chip .uname{max-width:70px}
   .api-panel-inner{padding:12px 14px}.api-panel-row{flex-direction:column;gap:6px}.api-panel-input{font-size:12px;padding:9px 12px}
   .steps-wrap{margin-bottom:20px}.step-dot{width:30px;height:30px;font-size:12px}.step-line{width:28px}.step-labels{gap:18px;margin-top:5px}.step-label{font-size:10px}
   .header{margin-bottom:20px}.badge{font-size:10px;padding:5px 14px;margin-bottom:10px}.header h1{font-size:22px}.header h1 .accent{font-size:28px}.header p{font-size:12px}.header p br{display:none}
@@ -240,7 +240,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
     <button class="home-btn" onclick="goHome()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>홈</button>
     <div class="top-right">
       <div class="user-chip" id="userChip" onclick="toggleUserMenu()" style="display:none">
-        <img id="userAvatar" src="" alt=""><span class="uname" id="userName"></span>
+        <img id="userAvatar" src="" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"><span id="userAvatarFallback" style="display:none;width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;font-size:13px;font-weight:800;align-items:center;justify-content:center;flex-shrink:0">👤</span><span class="uname" id="userName"></span>
         <div class="user-menu" id="userMenu">
           <button class="user-menu-item" onclick="toggleMyKeyPanel()">🔑 내 API 키 설정</button>
           <button class="user-menu-item danger" onclick="doLogout()">🚪 로그아웃</button>
@@ -307,7 +307,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
  └────────────────────────────────────────────────────────────────┘
 */
 const DEFAULT_API_KEY = 'YOUR_API_KEY_HERE';
-const GOOGLE_CLIENT_ID = '892450271971-2h9c4nbdpqdk5f81lmft7us39m9f097i.apps.googleusercontent.com';
+const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
 
 // ── Icons (compressed) ──
 const ICONS={naver:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>',facebook:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
@@ -348,8 +348,18 @@ function doGoogleLogin(){
 function showLoggedIn(){
   document.getElementById('loginOverlay').classList.add('hidden');
   document.getElementById('userChip').style.display='inline-flex';
-  document.getElementById('userAvatar').src=loggedInUser.picture;
-  document.getElementById('userName').textContent=loggedInUser.name;
+  const avatarEl=document.getElementById('userAvatar');
+  const fallbackEl=document.getElementById('userAvatarFallback');
+  if(loggedInUser.picture){
+    avatarEl.src=loggedInUser.picture;
+    avatarEl.style.display='';
+    fallbackEl.style.display='none';
+  }else{
+    avatarEl.style.display='none';
+    fallbackEl.style.display='flex';
+    fallbackEl.textContent=loggedInUser.name?loggedInUser.name.charAt(0):'👤';
+  }
+  document.getElementById('userName').textContent=loggedInUser.name||loggedInUser.email||'사용자';
 }
 function doLogout(){
   loggedInUser=null;
