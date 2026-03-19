@@ -312,8 +312,7 @@ async function testApiKey(){
 }
 
 /* 핵심 수정: Gemini API 호출 함수 */
-// 문제가 된 gemini-2.0-flash를 제거하거나 순서를 뒤로 미룹니다.
-const MODELS=['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash-exp'];
+const MODELS=['gemini-1.5-flash'];
 async function callGemini(apiKey, prompt){
   let lastErr='';
   for(const model of MODELS){
