@@ -311,8 +311,9 @@ async function testApiKey(){
   }
 }
 
-/* 핵심 수정: Gemini API 호출 함수 */
-const MODELS=['gemini-1.5-flash'];
+/* 최신 모델 정책에 맞춘 수정본 */
+const MODELS=['gemini-1.5-flash', 'gemini-1.5-pro']; 
+
 async function callGemini(apiKey, prompt){
   let lastErr='';
   for(const model of MODELS){
@@ -328,10 +329,24 @@ async function callGemini(apiKey, prompt){
       });
       const data=await resp.json();
       if(data.error){
-        lastErr=`[${model}] ${data.error.message||JSON.stringify(data.error)}`;
+        lastErr=`[${model}] ${data.error.message}`;
+        // 특정 모델이 사용 불가(404, 400)할 경우 다음 모델로 넘어감
         if(data.error.code===400||data.error.code===404) continue; 
         throw new Error(lastErr);
       }
+      if(!data.candidates||!data.candidates[0]){
+        lastErr=`[${model}] 응답이 비어있습니다`;
+        continue;
+      }
+      return data.candidates[0].content.parts.map(x=>x.text||'').join('');
+    }catch(e){
+      lastErr=e.message||String(e);
+      if(lastErr.includes('API key')) throw e;
+      continue;
+    }
+  }
+  throw new Error(lastErr||'사용 가능한 모델이 없습니다. API 설정을 확인해주세요.');
+}
       if(!data.candidates||!data.candidates[0]){
         lastErr=`[${model}] 응답이 비어있습니다`;
         continue;
