@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* CSS 스타일 부분은 기존과 동일하므로 생략하지 않고 전체 포함합니다 */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root,[data-theme="light"]{
   --purple:#6C63FF;--purple-dark:#4834d4;--naver:#03C75A;--tistory:#FF5A4A;--instagram:#E1306C;--facebook:#1877F2;--youtube:#FF0000;
@@ -36,7 +35,10 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 @keyframes progressAnim{0%{width:5%}50%{width:65%}90%{width:88%}100%{width:95%}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes checkPop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
+
 .container{max-width:900px;margin:0 auto;padding:36px 32px 28px;min-height:100vh}
+
+/* Top Bar */
 .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
 .home-btn{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);color:var(--text-secondary);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .2s}
 .home-btn:hover{background:var(--card-hover);border-color:var(--purple);color:var(--purple)}
@@ -44,6 +46,8 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .top-right{display:flex;gap:8px;align-items:center}
 .theme-toggle{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-secondary);transition:all .2s}
 .theme-toggle:hover{border-color:var(--purple);color:var(--purple)}
+
+/* User chip */
 .user-chip{display:inline-flex;align-items:center;gap:7px;padding:5px 14px 5px 5px;border:1.5px solid var(--border);border-radius:24px;background:var(--card);font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s;position:relative}
 .user-chip:hover{border-color:var(--purple)}
 .user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0}
@@ -54,9 +58,13 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .user-menu-item{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;font-family:inherit;text-align:left}
 .user-menu-item:hover{background:var(--card-hover)}
 .user-menu-item.danger{color:var(--error-text)}
+
+/* Google login btn (inline, not blocking) */
 .google-login-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px 7px 10px;border:1.5px solid var(--border);border-radius:24px;background:var(--card);font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s}
 .google-login-btn:hover{border-color:#4285F4;color:#4285F4;background:rgba(66,133,244,.04)}
 .google-login-btn svg{width:18px;height:18px;flex-shrink:0}
+
+/* API Key Panel */
 .api-panel{overflow:hidden;transition:all .35s ease;max-height:0;opacity:0;margin-bottom:0}
 .api-panel.open{max-height:220px;opacity:1;margin-bottom:20px}
 .api-panel-inner{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:16px 20px}
@@ -69,6 +77,8 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .api-panel-save{padding:10px 16px;border:none;border-radius:10px;background:#4285F4;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
 .api-panel-note{font-size:10.5px;color:var(--text-muted);margin-top:8px;line-height:1.5}
 .api-panel-note a{color:#4285F4}
+
+/* Steps */
 .steps-wrap{margin-bottom:28px}
 .steps-indicator{display:flex;align-items:center;justify-content:center}
 .step-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transition:all .3s;background:var(--border);color:var(--text-muted)}
@@ -79,11 +89,15 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .step-labels{display:flex;justify-content:center;gap:60px;margin-top:8px}
 .step-label{font-size:12px;color:var(--text-muted);font-weight:600;transition:color .3s}
 .step-label.active{color:var(--purple)}.step-label.done{color:var(--naver)}
+
+/* Header */
 .header{text-align:center;margin-bottom:28px}
 .badge{display:inline-block;font-size:13px;font-weight:800;letter-spacing:1px;color:var(--purple);background:rgba(108,99,255,.1);padding:7px 20px;border-radius:20px;margin-bottom:14px}
 .header h1{font-size:32px;font-weight:900;line-height:1.3;margin-bottom:10px}
 .header h1 .accent{color:var(--purple);font-size:42px}
 .header p{font-size:14px;color:var(--text-light);line-height:1.8}
+
+/* Platform */
 .step-section{animation:fadeUp .5s ease}
 .step-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:24px}
 .platform-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
@@ -97,6 +111,8 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .platform-card .p-icon-wrap svg{width:32px;height:32px}
 .platform-card .p-name{font-size:13px;font-weight:800;text-align:center}
 .platform-card .p-desc{font-size:11px;color:var(--text-muted);font-weight:500;text-align:center}
+
+/* Step2 */
 .selected-platform-badge{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
 .sp-badge{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:24px;font-size:14px;font-weight:700;color:#fff}
 .sp-badge svg{width:16px;height:16px}
@@ -109,6 +125,8 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .gen-btn:disabled{opacity:.4;cursor:not-allowed}
 .gen-btn:not(:disabled):hover{transform:translateY(-1px);filter:brightness(1.1)}
 .date-tag{font-size:12px;color:var(--text-muted);text-align:center;margin-top:12px}
+
+/* Loading */
 .loading{text-align:center;padding:56px 20px;animation:fadeUp .4s ease}
 .spinner-wrap{position:relative;width:56px;height:56px;margin:0 auto 20px}
 .spinner-ring{width:56px;height:56px;border:4px solid var(--spinner-track);border-radius:50%;animation:spin .75s linear infinite;position:absolute}
@@ -119,6 +137,8 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .progress-bar{max-width:320px;height:4px;background:var(--progress-track);border-radius:2px;margin:0 auto;overflow:hidden}
 .progress-fill{height:100%;border-radius:2px}
 .error-box{padding:16px 22px;background:var(--error-bg);color:var(--error-text);border-radius:12px;font-size:14px;border:1px solid var(--error-border);margin-bottom:20px}
+
+/* Results */
 .results{animation:fadeUp .5s ease}
 .result-platform-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid var(--border-light)}
 .rph-icon svg{width:36px;height:36px}
@@ -144,6 +164,8 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .bottom-actions{display:flex;gap:12px;justify-content:center;padding-top:20px;border-top:1px solid var(--border-light);margin-top:24px}
 .copy-all-btn{padding:14px 36px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
 .copy-all-btn:hover{opacity:.9;transform:translateY(-1px)}
+
+/* Community */
 .community{margin-top:52px;padding:36px 32px;border-radius:var(--radius);background:var(--community-bg);border:1px solid var(--community-border);text-align:center}
 .community-title{font-size:17px;font-weight:800;margin-bottom:6px}
 .community-sub{font-size:13px;color:var(--text-muted);margin-bottom:22px}
@@ -152,6 +174,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .community-link:hover{border-color:var(--purple);color:var(--purple);background:var(--link-card-hover);transform:translateY(-2px)}
 .community-link .cl-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;flex-shrink:0}
 .footer{text-align:center;margin-top:28px;padding:22px 0;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light)}
+
 @media(max-width:768px){.container{padding:24px 20px}.header h1{font-size:26px}.header h1 .accent{font-size:34px}.platform-grid{grid-template-columns:repeat(3,1fr);gap:10px}.platform-card{padding:24px 10px 20px}.platform-card .p-icon-wrap{width:52px;height:52px}.platform-card .p-icon-wrap svg{width:28px;height:28px}.step-line{width:48px}.step-labels{gap:38px}.result-platform-header{flex-wrap:wrap}.rph-actions{margin-left:0;margin-top:8px;width:100%}}
 @media(max-width:480px){
 .container{padding:16px 14px}.home-btn{padding:8px 12px;font-size:12px;gap:4px;border-radius:8px}.home-btn svg{width:14px;height:14px}.top-right{gap:5px}.theme-toggle{padding:7px 10px;font-size:11px;gap:5px;border-radius:8px}.google-login-btn{padding:6px 12px 6px 8px;font-size:11px;border-radius:20px}.google-login-btn svg{width:16px;height:16px}.user-chip{padding:4px 10px 4px 4px;font-size:11px}.user-chip img,.user-chip .avatar-fallback{width:24px;height:24px;font-size:10px}.user-chip .uname{max-width:70px}.api-panel-inner{padding:12px 14px}.api-panel-row{flex-direction:column;gap:6px}.api-panel-input{font-size:12px;padding:9px 12px}
@@ -166,18 +189,23 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .copy-btn{padding:6px 12px;font-size:11.5px;border-radius:8px}.bottom-actions{padding-top:14px;margin-top:16px}.copy-all-btn{padding:12px 24px;font-size:14px;width:100%}
 .community{margin-top:32px;padding:24px 16px;border-radius:14px}.community-title{font-size:14px}.community-sub{font-size:11px;margin-bottom:16px}.community-links{gap:7px}.community-link{padding:8px 12px;font-size:11px;gap:5px}.footer{margin-top:20px;padding:16px 0;font-size:10.5px}
 }
+@media(min-width:1200px){.container{max-width:960px;padding:48px 40px 36px}.header h1{font-size:36px}.header h1 .accent{font-size:48px}.header p{font-size:15px}.platform-card{padding:34px 16px 28px}.platform-card .p-icon-wrap{width:68px;height:68px;border-radius:20px}.platform-card .p-icon-wrap svg{width:36px;height:36px}}
 </style>
 </head>
 <body>
 <div class="container">
+
   <div class="top-bar">
     <button class="home-btn" onclick="goHome()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>홈</button>
     <div class="top-right">
+      <!-- API Key button (always visible) -->
       <button class="google-login-btn" onclick="toggleMyKeyPanel()" style="gap:5px">🔑 API 키</button>
+      <!-- Google Login Button (shown when not logged in) -->
       <button class="google-login-btn" id="googleLoginBtn" onclick="doGoogleLogin()">
         <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
         Google 로그인
       </button>
+      <!-- User Chip (shown when logged in) -->
       <div class="user-chip" id="userChip" onclick="toggleUserMenu()" style="display:none">
         <img id="userAvatar" src="" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="display:none">
         <span class="avatar-fallback" id="userAvatarFallback">👤</span>
@@ -191,6 +219,7 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
     </div>
   </div>
 
+  <!-- Optional: My API Key Panel -->
   <div class="api-panel" id="apiPanel">
     <div class="api-panel-inner">
       <div class="api-panel-head"><label>🔑 내 Google Gemini API Key (선택)</label><a href="https://aistudio.google.com/apikey" target="_blank">발급받기 →</a></div>
@@ -234,15 +263,26 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
   <div class="footer"><span>유쌤클래스 · AI콘텐츠마케팅연구소</span><span style="margin:0 6px">·</span><span>Powered by 친절한유성쌤</span></div>
 </div>
 
+<!-- Google Identity Services (loaded async) -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
-<script>
-/* ★ 관리자 최종 설정 ★
-   아래 '여기에_유료_키_입력' 부분을 지우고 아까 확인하신 ...43jQ 키를 넣으세요 
-*/
-const DEFAULT_API_KEY = '여기에_유료_키_입력'; 
-const GOOGLE_CLIENT_ID = '892450271971-2h9c4nbdpqdk5f81lmft7us39m9f097i.apps.googleusercontent.com';
 
-// 아이콘 및 데이터 설정 (기존과 동일)
+<script>
+/*
+ ┌──────────────────────────────────────────────────────────────┐
+ │  ★ 관리자 설정 (아래 2곳만 수정하세요)                       │
+ │                                                              │
+ │  1. DEFAULT_API_KEY : 무료 사용자용 Google Gemini API 키     │
+ │     → https://aistudio.google.com/apikey 에서 무료 발급      │
+ │                                                              │
+ │  2. GOOGLE_CLIENT_ID : 구글 로그인용 (선택사항)              │
+ │     → 설정 안 하면 로그인 없이 바로 사용 가능                │
+ │     → https://console.cloud.google.com/apis/credentials      │
+ └──────────────────────────────────────────────────────────────┘
+*/
+const DEFAULT_API_KEY = 'YOUR_API_KEY_HERE';
+const GOOGLE_CLIENT_ID = '';  // 비워두면 Google 로그인 버튼 숨김
+
+// ── Icons ──
 const ICONS={naver:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>',facebook:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
 const IC16={naver:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2z"/></svg>',facebook:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
 const ICLG={naver:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#03C75A"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF5A4A"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2z"/></svg>',facebook:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
@@ -253,21 +293,78 @@ const LM={naver:["네이버 검색 트렌드 분석 중","키워드 경쟁력 �
 
 let sp=null,rd=null,sti=0,ct='',lt=null,loggedInUser=null;
 
+// ── Theme ──
 function toggleTheme(){const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('themeIcon').textContent=d?'🌙':'☀️';document.getElementById('themeLabel').textContent=d?'다크모드':'라이트모드';try{localStorage.setItem('theme',d?'light':'dark');}catch{}}
 function loadTheme(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeIcon').textContent='☀️';document.getElementById('themeLabel').textContent='라이트모드';}}catch{}}
 
+// ── Google Login ──
+function decodeJwt(token){
+  const base64=token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+  const raw=atob(base64);
+  return JSON.parse(decodeURIComponent(Array.from(raw).map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join('')));
+}
+function handleCredentialResponse(response){
+  const p=decodeJwt(response.credential);
+  loggedInUser={name:p.name||p.email,email:p.email,picture:p.picture};
+  try{localStorage.setItem('guser',JSON.stringify(loggedInUser));}catch{}
+  showLoggedIn();
+}
+function doGoogleLogin(){
+  if(!GOOGLE_CLIENT_ID){alert('관리자가 Google 로그인을 아직 설정하지 않았습니다.\n로그인 없이 바로 사용하실 수 있습니다!');return;}
+  try{
+    google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleCredentialResponse,auto_select:true});
+    google.accounts.id.prompt();
+  }catch(e){alert('Google 로그인을 불러오는 중 오류가 발생했습니다.\n로그인 없이 바로 사용하실 수 있습니다!');}
+}
+function showLoggedIn(){
+  document.getElementById('googleLoginBtn').style.display='none';
+  const chip=document.getElementById('userChip');chip.style.display='inline-flex';
+  const av=document.getElementById('userAvatar'),fb=document.getElementById('userAvatarFallback');
+  if(loggedInUser.picture){av.src=loggedInUser.picture;av.style.display='';fb.style.display='none';}
+  else{av.style.display='none';fb.style.display='flex';fb.textContent=(loggedInUser.name||'U').charAt(0);}
+  document.getElementById('userName').textContent=loggedInUser.name||loggedInUser.email||'사용자';
+}
+function doLogout(){
+  loggedInUser=null;try{localStorage.removeItem('guser');}catch{}
+  document.getElementById('googleLoginBtn').style.display='inline-flex';
+  document.getElementById('userChip').style.display='none';
+  document.getElementById('userMenu').classList.remove('open');
+  document.getElementById('apiPanel').classList.remove('open');
+}
+function toggleUserMenu(){document.getElementById('userMenu').classList.toggle('open');}
+function toggleMyKeyPanel(){document.getElementById('apiPanel').classList.toggle('open');const m=document.getElementById('userMenu');if(m)m.classList.remove('open');}
+
+// ── API Key ──
 function getActiveKey(){const mk=(document.getElementById('myApiKeyInput').value.trim())||loadMyKey();return mk||DEFAULT_API_KEY;}
 function loadMyKey(){try{return localStorage.getItem('my_gemini_key')||'';}catch{return '';}}
 function saveMyKey(){const k=document.getElementById('myApiKeyInput').value.trim();if(!k){showMyStatus('⚠️ 키를 입력해주세요','#c53030');return;}try{localStorage.setItem('my_gemini_key',k);showMyStatus('✅ 저장 완료!','#03C75A');}catch{showMyStatus('⚠️ 저장 실패','#c53030');}}
 function showMyStatus(m,c){const e=document.getElementById('myApiStatus');e.innerHTML=`<div style="font-size:11px;font-weight:600;margin-top:6px;color:${c}">${m}</div>`;setTimeout(()=>e.innerHTML='',4000);}
 
-// API 호출부 수정 (가장 안정적인 1.5 모델만 사용)
-const MODELS=['gemini-1.5-flash', 'gemini-1.5-pro']; 
+// API 키 테스트
+async function testApiKey(){
+  const key=getActiveKey();
+  if(!key||key==='YOUR_API_KEY_HERE'){showMyStatus('⚠️ 테스트할 API 키가 없습니다','#c53030');return;}
+  showMyStatus('🔄 테스트 중...','#666');
+  try{
+    const txt=await callGemini(key,'안녕하세요라고 한 마디만 해주세요.');
+    showMyStatus('✅ API 키 정상 작동! 사용 가능합니다','#03C75A');
+  }catch(e){
+    let msg=e.message||String(e);
+    if(msg.includes('API key not valid')||msg.includes('API_KEY_INVALID')) msg='❌ API 키가 유효하지 않습니다. 키를 다시 확인해주세요.';
+    else if(msg.includes('403')) msg='❌ 권한 부족. Google AI Studio에서 API가 활성화되어 있는지 확인하세요.';
+    else if(msg.includes('429')) msg='⚠️ 사용량 초과. 잠시 후 다시 시도해주세요.';
+    else msg='❌ 오류: '+msg;
+    showMyStatus(msg,'#c53030');
+  }
+}
+
+// Gemini API 호출 함수 (모델 자동 선택)
+const MODELS=['gemini-2.0-flash','gemini-1.5-flash','gemini-1.5-flash-latest','gemini-pro'];
 async function callGemini(apiKey, prompt){
   let lastErr='';
   for(const model of MODELS){
     try{
-      const url=`https://generativelanguage.googleapis.com/v1/models/${model}:generateContent?key=${apiKey}`;
+      const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
       const resp=await fetch(url,{
         method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -278,46 +375,37 @@ async function callGemini(apiKey, prompt){
       });
       const data=await resp.json();
       if(data.error){
-        lastErr=`[${model}] ${data.error.message}`;
-        if(data.error.code===400||data.error.code===404) continue; 
+        lastErr=`[${model}] ${data.error.message||JSON.stringify(data.error)}`;
+        if(data.error.code===400||data.error.code===404) continue; // 모델 없음 → 다음 시도
         throw new Error(lastErr);
       }
       if(!data.candidates||!data.candidates[0]){
         lastErr=`[${model}] 응답이 비어있습니다`;
         continue;
       }
-      return data.candidates[0].content.parts.map(x=>x.text||'').join('');
+      const txt=data.candidates[0].content.parts.map(x=>x.text||'').join('');
+      return txt;
     }catch(e){
       lastErr=e.message||String(e);
-      if(lastErr.includes('API key')) throw e;
+      if(e.message&&(e.message.includes('API key')||e.message.includes('403')||e.message.includes('401'))) throw e;
       continue;
     }
   }
-  throw new Error(lastErr||'사용 가능한 모델이 없습니다. API 설정을 확인해주세요.');
+  throw new Error(lastErr||'모든 모델에서 응답을 받지 못했습니다.');
 }
 
-async function testApiKey(){
-  const key=getActiveKey();
-  if(!key||key==='여기에_유료_키_입력'){showMyStatus('⚠️ 테스트할 API 키가 없습니다','#c53030');return;}
-  showMyStatus('🔄 테스트 중...','#666');
-  try{
-    await callGemini(key,'안녕');
-    showMyStatus('✅ API 키 정상 작동! 사용 가능합니다','#03C75A');
-  }catch(e){
-    showMyStatus('❌ 오류: '+e.message,'#c53030');
-  }
-}
-
+// ── Steps ──
 function setStep(n){for(let i=1;i<=3;i++){const d=document.getElementById('dot'+i),l=document.getElementById('label'+i);d.classList.remove('active','done');l.classList.remove('active','done');if(i<n){d.classList.add('done');l.classList.add('done');d.textContent='✓';}else if(i===n){d.classList.add('active');l.classList.add('active');d.textContent=i;}else d.textContent=i;}for(let i=1;i<=2;i++)document.getElementById('line'+i).classList.toggle('active',i<n);document.getElementById('step1').style.display=n===1?'block':'none';document.getElementById('step2').style.display=n===2?'block':'none';document.getElementById('step3').style.display=n===3?'block':'none';document.getElementById('loadingArea').style.display='none';document.getElementById('errorBox').style.display='none';}
 function renderGrid(){document.getElementById('platformGrid').innerHTML=P.map(p=>`<div class="platform-card" id="pc-${p.id}" onclick="pick('${p.id}')"><div class="check-circle" style="background:${p.color}">✓</div><div class="p-icon-wrap" style="background:${p.color}">${ICONS[p.id]}</div><div class="p-name">${p.name}</div><div class="p-desc">${p.desc}</div></div>`).join('');}
 function pick(id){sp=P.find(p=>p.id===id);document.querySelectorAll('.platform-card').forEach(el=>{el.classList.remove('selected');el.style.borderColor='var(--border)';el.style.boxShadow='none';});const c=document.getElementById('pc-'+id);c.classList.add('selected');c.style.borderColor=sp.color;c.style.boxShadow=`0 8px 28px ${sp.color}25`;setTimeout(()=>{setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${sp.color}">${IC16[sp.id]} ${sp.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=sp.ph;document.getElementById('genBtn').style.background=sp.color;setTimeout(()=>document.getElementById('topicInput').focus(),100);},300);}
 function goHome(){sp=null;rd=null;sti=0;ct='';document.getElementById('topicInput').value='';setStep(1);renderGrid();window.scrollTo({top:0,behavior:'smooth'});}
 
+// ── Generate ──
 async function generate(){
   const topic=document.getElementById('topicInput').value.trim();
   if(!topic){alert('주제를 입력해주세요!');return;}
   const apiKey=getActiveKey();
-  if(!apiKey||apiKey==='여기에_유료_키_입력'){alert('⚠️ API 키가 설정되지 않았습니다.');return;}
+  if(!apiKey||apiKey==='YOUR_API_KEY_HERE'){alert('⚠️ API 키가 설정되지 않았습니다.\n\nindex.html 파일에서 DEFAULT_API_KEY 값을 수정하거나,\n우측 상단 프로필 → [🔑 내 API 키 설정]에서 직접 입력해주세요.\n\nAPI 키 발급: https://aistudio.google.com/apikey');return;}
   ct=topic;const p=sp,btn=document.getElementById('genBtn');btn.disabled=true;btn.textContent='생성 중...';
   document.getElementById('step2').style.display='none';const la=document.getElementById('loadingArea');la.style.display='block';
   document.getElementById('spinnerRing').style.borderTopColor=p.color;
@@ -326,43 +414,71 @@ async function generate(){
   const msgs=LM[p.id];let mi=0;document.getElementById('loadingMsg').innerHTML='🔍 '+msgs[0]+'...<span class="loading-dots">...</span>';
   lt=setInterval(()=>{mi=(mi+1)%msgs.length;document.getElementById('loadingMsg').innerHTML='✨ '+msgs[mi]+'...<span class="loading-dots">...</span>';},3000);
   rd=null;sti=0;const kwL=p.id==='instagram'?'해시태그':'키워드',kwN=p.id==='instagram'?15:10;
-  const prompt=`당신은 대한민국 최고의 ${p.name} 콘텐츠 마케팅 전문가입니다. 2026년 3월 19일 기준 최신 트렌드를 반영합니다. 반드시 아래 JSON 형식으로만 응답하세요. 마크다운 백틱 없이 순수 JSON만 출력하세요. {"titles":["제목1","제목2","제목3","제목4","제목5"],"post":"본문 내용","keywords":[${Array.from({length:kwN},(_,i)=>`"${kwL}${i+1}"`).join(',')}]} ${PR[p.id]} 주제: "${topic}"`;
+  const prompt=`당신은 대한민국 최고의 ${p.name} 콘텐츠 마케팅 전문가입니다. 2026년 3월 19일 기준 최신 트렌드를 반영합니다.
+
+반드시 아래 JSON 형식으로만 응답하세요. 마크다운 백틱이나 다른 텍스트 없이 순수 JSON만 출력하세요.
+
+{"titles":["제목1","제목2","제목3","제목4","제목5"],"post":"최적화된 포스팅 본문","keywords":[${Array.from({length:kwN},(_,i)=>`"${kwL}${i+1}"`).join(',')}]}
+
+${PR[p.id]}
+
+주제: "${topic}"
+
+위 주제로 ${p.name}에 최적화된 제목 5개, 포스팅 글, ${kwL}를 JSON으로 생성해주세요.`;
   try{
     const txt=await callGemini(apiKey, prompt);
     const cleaned=txt.replace(/```json\s*/g,'').replace(/```\s*/g,'').trim();
+    // JSON 부분만 추출
     const jsonMatch=cleaned.match(/\{[\s\S]*\}/);
-    if(!jsonMatch) throw new Error('데이터 파싱 오류');
+    if(!jsonMatch) throw new Error('JSON 응답을 파싱할 수 없습니다.\n\n응답 내용:\n'+cleaned.substring(0,200));
     rd=JSON.parse(jsonMatch[0]);
+    if(!rd.titles||!rd.post||!rd.keywords) throw new Error('응답 형식이 올바르지 않습니다.');
     clearInterval(lt);la.style.display='none';setStep(3);renderRes();window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
     clearInterval(lt);la.style.display='none';
+    let errMsg=err.message||String(err);
+    // 친절한 에러 메시지
+    if(errMsg.includes('API key not valid')||errMsg.includes('API_KEY_INVALID')) errMsg='API 키가 유효하지 않습니다.\nhttps://aistudio.google.com/apikey 에서 새 키를 발급받아주세요.';
+    else if(errMsg.includes('403')||errMsg.includes('PERMISSION_DENIED')) errMsg='API 키 권한이 부족합니다.\nGoogle AI Studio에서 Generative Language API가 활성화되어 있는지 확인해주세요.';
+    else if(errMsg.includes('429')||errMsg.includes('RESOURCE_EXHAUSTED')) errMsg='API 사용량이 초과되었습니다.\n잠시 후 다시 시도해주세요. (무료: 분당 15회)';
+    else if(errMsg.includes('Failed to fetch')||errMsg.includes('NetworkError')) errMsg='네트워크 연결을 확인해주세요.\n인터넷 연결이 불안정하거나, 방화벽이 Google API를 차단하고 있을 수 있습니다.';
     document.getElementById('errorBox').style.display='block';
-    document.getElementById('errorBox').innerHTML='⚠️ 오류: '+err.message;
-    setStep(2);
+    document.getElementById('errorBox').innerHTML='⚠️ '+errMsg;
+    setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${p.color}">${IC16[p.id]} ${p.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=p.ph;document.getElementById('genBtn').style.background=p.color;
   }finally{btn.disabled=false;btn.textContent='🚀 생성하기';}}
 
-function renderRes(){const p=sp;document.getElementById('resultHeader').innerHTML=`<div class="rph-icon">${ICLG[p.id]}</div><div class="rph-info"><h2 style="color:${p.color}">${p.name} 콘텐츠</h2><p>주제: ${esc(ct)}</p></div><div class="rph-actions"><button class="new-btn" onclick="reGen()">🔄 다시 생성</button><button class="new-btn" onclick="goHome()">🏠 처음으로</button></div>`;renderSec();document.getElementById('bottomActions').innerHTML=`<button class="copy-all-btn" style="background:${p.color}" onclick="copyAll(this)">📦 전체 복사</button>`;}
-function renderSec(){const p=sp,d=rd,si=sti,kwL=p.id==='instagram'?'해시태그':'키워드';let h='';h+=`<div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">📌 추천 제목</h2><button class="copy-btn" onclick="cT(this)">📋 복사</button></div><div class="titles-list">`;d.titles.forEach((t,i)=>{const s=i===si;h+=`<div class="title-card" style="border-left-color:${p.color};${s?`background:${p.color}0d;border-color:${p.color};`:''}" onclick="pT(${i})"><span class="title-num" style="background:${p.color}">${i+1}</span><span class="title-text">${esc(t)}</span></div>`;});h+=`</div></div><div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">📝 포스팅</h2><button class="copy-btn" onclick="cP(this)">📋 복사</button></div><div class="post-box"><pre class="post-text">${esc(d.post)}</pre></div></div><div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">🏷️ ${kwL}</h2><button class="copy-btn" onclick="cK(this)">📋 복사</button></div><div class="kw-wrap">`;d.keywords.forEach(kw=>{h+=`<span class="kw" style="background:${p.color}12;color:${p.color};">${esc(kw)}</span>`;});h+=`</div></div>`;document.getElementById('contentArea').innerHTML=h;}
+// ── Results ──
+function renderRes(){const p=sp;document.getElementById('resultHeader').innerHTML=`<div class="rph-icon">${ICLG[p.id]}</div><div class="rph-info"><h2 style="color:${p.color}">${p.name} 최적화 콘텐츠</h2><p>주제: ${esc(ct)}</p></div><div class="rph-actions"><button class="new-btn" onclick="reGen()">🔄 다시 생성</button><button class="new-btn" onclick="goHome()">🏠 처음으로</button></div>`;renderSec();document.getElementById('bottomActions').innerHTML=`<button class="copy-all-btn" style="background:${p.color}" onclick="copyAll(this)">📦 전체 콘텐츠 복사</button>`;}
+function renderSec(){const p=sp,d=rd,si=sti,kwL=p.id==='instagram'?'해시태그':'키워드';let h='';h+=`<div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">📌 추천 제목 TOP 5</h2><button class="copy-btn" onclick="cT(this)">📋 선택 제목 복사</button></div><div class="titles-list">`;d.titles.forEach((t,i)=>{const s=i===si;h+=`<div class="title-card" style="border-left-color:${p.color};${s?`background:${p.color}0d;border-color:${p.color};box-shadow:0 2px 12px ${p.color}22;`:''}" onclick="pT(${i})"><span class="title-num" style="background:${p.color}">${i+1}</span><span class="title-text">${esc(t)}</span>${s?`<span class="sel-badge" style="background:${p.color}">선택됨</span>`:''}</div>`;});h+=`</div></div>`;h+=`<div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">📝 최적화 포스팅</h2><button class="copy-btn" onclick="cP(this)">📋 복사</button></div><div class="post-box"><pre class="post-text">${esc(d.post)}</pre></div></div>`;h+=`<div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">🏷️ 최적화 ${kwL}</h2><button class="copy-btn" onclick="cK(this)">📋 복사</button></div><div class="kw-wrap">`;d.keywords.forEach(kw=>{h+=`<span class="kw" style="background:${p.color}12;color:${p.color};border-color:${p.color}33;">${esc(kw)}</span>`;});h+=`</div></div>`;document.getElementById('contentArea').innerHTML=h;}
 function pT(i){sti=i;renderSec();}
-function reGen(){setStep(2);document.getElementById('topicInput').focus();}
-function cp(t,b){try{navigator.clipboard.writeText(t);}catch{const a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();document.execCommand('copy');document.body.removeChild(a);}if(b){const o=b.textContent;b.textContent='✅ 완료';setTimeout(()=>{b.textContent=o;},2000);}}
+function reGen(){setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${sp.color}">${IC16[sp.id]} ${sp.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=sp.ph;document.getElementById('genBtn').style.background=sp.color;document.getElementById('topicInput').focus();}
+
+// ── Copy ──
+function cp(t,b){const fb=()=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.left='-9999px';document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch{}document.body.removeChild(a);};try{navigator.clipboard.writeText(t).catch(fb);}catch{fb();}if(b){const o=b.textContent;b.textContent='✅ 복사됨';b.classList.add('copied');setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},2000);}}
 function cT(b){cp(rd.titles[sti],b);}
 function cP(b){cp(rd.post,b);}
-function cK(b){cp(rd.keywords.join(' '),b);}
-function copyAll(b){const d=rd;cp(`제목: ${d.titles[sti]}\n\n본문:\n${d.post}\n\n키워드: ${d.keywords.join(', ')}`,b);}
+function fmtKw(arr){return arr.map(k=>k.startsWith('#')?k:'#'+k.replace(/\s+/g,'')).join(' ');}
+function cK(b){cp(fmtKw(rd.keywords),b);}
+function copyAll(b){const p=sp,d=rd,kwL=p.id==='instagram'?'해시태그':'키워드';let c=`[${p.name}]\n\n📌 선택된 제목: ${d.titles[sti]}\n\n--- 전체 제목 후보 ---\n`;d.titles.forEach((t,i)=>c+=`${i+1}. ${t}\n`);c+=`\n--- 본문 ---\n${d.post}\n\n--- ${kwL} ---\n${fmtKw(d.keywords)}`;cp(c,b);}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
-function decodeJwt(token){try{const b=token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');return JSON.parse(atob(b));}catch{return {};}}
-function handleCredentialResponse(r){const p=decodeJwt(r.credential);loggedInUser={name:p.name,email:p.email,picture:p.picture};localStorage.setItem('guser',JSON.stringify(loggedInUser));showLoggedIn();}
-function doGoogleLogin(){google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleCredentialResponse});google.accounts.id.prompt();}
-function showLoggedIn(){document.getElementById('googleLoginBtn').style.display='none';document.getElementById('userChip').style.display='inline-flex';document.getElementById('userName').textContent=loggedInUser.name;if(loggedInUser.picture) document.getElementById('userAvatar').src=loggedInUser.picture;document.getElementById('userAvatar').style.display='block';document.getElementById('userAvatarFallback').style.display='none';}
-function doLogout(){loggedInUser=null;localStorage.removeItem('guser');location.reload();}
-function toggleUserMenu(){document.getElementById('userMenu').classList.toggle('open');}
-function toggleMyKeyPanel(){document.getElementById('apiPanel').classList.toggle('open');}
 
+// Close menus on outside click
+document.addEventListener('click',e=>{if(!e.target.closest('.user-chip'))document.getElementById('userMenu')?.classList.remove('open');});
+
+// ── Init ──
 document.addEventListener('DOMContentLoaded',()=>{
   renderGrid();loadTheme();
   const mk=loadMyKey();if(mk)document.getElementById('myApiKeyInput').value=mk;
   try{const saved=localStorage.getItem('guser');if(saved){loggedInUser=JSON.parse(saved);showLoggedIn();}}catch{}
+  if(!GOOGLE_CLIENT_ID)document.getElementById('googleLoginBtn').style.display='none';
+  document.getElementById('topicInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();generate();}});
+  // API 키 상태 표시
+  const activeKey=getActiveKey();
+  if(activeKey&&activeKey!=='YOUR_API_KEY_HERE'){
+    console.log('✅ API 키 로드됨: '+activeKey.substring(0,8)+'...');
+  }else{
+    console.warn('⚠️ API 키가 설정되지 않았습니다. index.html에서 DEFAULT_API_KEY를 설정해주세요.');
+  }
 });
 </script>
 </body>
