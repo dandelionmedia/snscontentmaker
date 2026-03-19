@@ -359,7 +359,7 @@ async function testApiKey(){
 }
 
 // Gemini API 호출 함수 (모델 자동 선택)
-const MODELS=['gemini-2.0-flash','gemini-1.5-flash','gemini-1.5-flash-latest','gemini-pro'];
+const MODELS=['gemini-1.5-flash', 'gemini-1.5-pro', 'gemini-2.0-flash'];
 async function callGemini(apiKey, prompt){
   let lastErr='';
   for(const model of MODELS){
