@@ -6,37 +6,27 @@
 <title>5대 플랫폼 콘텐츠 최적화 생성기 | 유쌤클래스</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root,[data-theme="light"]{
-  --purple:#6C63FF;--purple-dark:#4834d4;--naver:#03C75A;--tistory:#FF5A4A;--instagram:#E1306C;--facebook:#1877F2;--youtube:#FF0000;
-  --text:#1a1a2e;--text-secondary:#555;--text-light:#666;--text-muted:#999;
-  --bg:#f5f6fa;--card:#fff;--card-hover:#f8f8fb;--border:#e4e4e8;--border-light:#eee;--radius:16px;
-  --shadow-sm:0 2px 20px rgba(0,0,0,.03);--shadow-md:0 8px 28px rgba(0,0,0,.08);
-  --post-bg:#fafafa;--spinner-track:#eee;--progress-track:#eee;
-  --error-bg:#fff5f5;--error-border:#fed7d7;--error-text:#c53030;
-  --copied-bg:#f0fff4;--copied-border:#c6f6d5;
-  --community-bg:#f8f9fc;--community-border:#eee;
-  --link-card-bg:#fff;--link-card-border:#e8e8ec;--link-card-hover:#f5f6fa;
-}
-[data-theme="dark"]{
-  --text:#e8e8f0;--text-secondary:#b0b0c0;--text-light:#9090a8;--text-muted:#707088;
-  --bg:#13131e;--card:#1e1e2e;--card-hover:#252538;--border:#2e2e42;--border-light:#2a2a3e;
-  --shadow-sm:0 2px 20px rgba(0,0,0,.15);--shadow-md:0 8px 28px rgba(0,0,0,.25);
-  --post-bg:#1a1a2a;--spinner-track:#2a2a3e;--progress-track:#2a2a3e;
-  --error-bg:#2d1b1b;--error-border:#5c2626;--error-text:#ff8888;
-  --copied-bg:#1a2e1a;--copied-border:#2a5a2a;
-  --community-bg:#1a1a28;--community-border:#2a2a3e;
-  --link-card-bg:#1e1e2e;--link-card-border:#2e2e42;--link-card-hover:#282840;
-}
+:root,[data-theme="light"]{--purple:#6C63FF;--purple-dark:#4834d4;--naver:#03C75A;--tistory:#FF5A4A;--instagram:#E1306C;--facebook:#1877F2;--youtube:#FF0000;--text:#1a1a2e;--text-secondary:#555;--text-light:#666;--text-muted:#999;--bg:#f5f6fa;--card:#fff;--card-hover:#f8f8fb;--border:#e4e4e8;--border-light:#eee;--radius:16px;--shadow-sm:0 2px 20px rgba(0,0,0,.03);--shadow-md:0 8px 28px rgba(0,0,0,.08);--post-bg:#fafafa;--spinner-track:#eee;--progress-track:#eee;--error-bg:#fff5f5;--error-border:#fed7d7;--error-text:#c53030;--copied-bg:#f0fff4;--copied-border:#c6f6d5;--community-bg:#f8f9fc;--community-border:#eee;--link-card-bg:#fff;--link-card-border:#e8e8ec;--link-card-hover:#f5f6fa}
+[data-theme="dark"]{--text:#e8e8f0;--text-secondary:#b0b0c0;--text-light:#9090a8;--text-muted:#707088;--bg:#13131e;--card:#1e1e2e;--card-hover:#252538;--border:#2e2e42;--border-light:#2a2a3e;--shadow-sm:0 2px 20px rgba(0,0,0,.15);--shadow-md:0 8px 28px rgba(0,0,0,.25);--post-bg:#1a1a2a;--spinner-track:#2a2a3e;--progress-track:#2a2a3e;--error-bg:#2d1b1b;--error-border:#5c2626;--error-text:#ff8888;--copied-bg:#1a2e1a;--copied-border:#2a5a2a;--community-bg:#1a1a28;--community-border:#2a2a3e;--link-card-bg:#1e1e2e;--link-card-border:#2e2e42;--link-card-hover:#282840}
 body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .3s,color .3s;-webkit-tap-highlight-color:transparent}
-@keyframes spin{to{transform:rotate(360deg)}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-@keyframes progressAnim{0%{width:5%}50%{width:65%}90%{width:88%}100%{width:95%}}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-@keyframes checkPop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}
-
+@keyframes spin{to{transform:rotate(360deg)}}@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}@keyframes progressAnim{0%{width:5%}50%{width:65%}90%{width:88%}100%{width:95%}}@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}@keyframes checkPop{0%{transform:scale(0)}60%{transform:scale(1.3)}100%{transform:scale(1)}}@keyframes fadeIn{from{opacity:0}to{opacity:1}}@keyframes scaleUp{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:scale(1)}}
 .container{max-width:900px;margin:0 auto;padding:36px 32px 28px;min-height:100vh}
+
+/* Login Overlay */
+.login-overlay{position:fixed;inset:0;background:var(--bg);z-index:1000;display:flex;align-items:center;justify-content:center;animation:fadeIn .3s}
+.login-overlay.hidden{display:none}
+.login-card{background:var(--card);border:1.5px solid var(--border);border-radius:24px;padding:48px 40px;text-align:center;max-width:440px;width:92%;box-shadow:0 20px 60px rgba(0,0,0,.1);animation:scaleUp .4s ease}
+.login-card .lbadge{display:inline-block;font-size:11px;font-weight:800;letter-spacing:1px;color:var(--purple);background:rgba(108,99,255,.1);padding:5px 16px;border-radius:16px;margin-bottom:16px}
+.login-card h2{font-size:24px;font-weight:900;margin-bottom:6px;line-height:1.3}
+.login-card h2 .accent{color:var(--purple);font-size:30px}
+.login-card .login-desc{font-size:13px;color:var(--text-muted);margin-bottom:28px;line-height:1.7}
+.google-btn{display:inline-flex;align-items:center;gap:10px;padding:14px 32px;border:2px solid var(--border);border-radius:14px;background:var(--card);cursor:pointer;font-family:inherit;font-size:15px;font-weight:700;color:var(--text);transition:all .25s}
+.google-btn:hover{border-color:#4285F4;box-shadow:0 4px 20px rgba(66,133,244,.15);transform:translateY(-2px)}
+.google-btn svg{width:22px;height:22px}
+.login-footer{margin-top:24px;font-size:11px;color:var(--text-muted);line-height:1.6}
 
 /* Top Bar */
 .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:24px}
@@ -46,190 +36,70 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
 .top-right{display:flex;gap:8px;align-items:center}
 .theme-toggle{display:inline-flex;align-items:center;gap:8px;padding:8px 16px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);cursor:pointer;font-family:inherit;font-size:12px;font-weight:600;color:var(--text-secondary);transition:all .2s}
 .theme-toggle:hover{border-color:var(--purple);color:var(--purple)}
-
-/* User chip */
 .user-chip{display:inline-flex;align-items:center;gap:7px;padding:5px 14px 5px 5px;border:1.5px solid var(--border);border-radius:24px;background:var(--card);font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s;position:relative}
 .user-chip:hover{border-color:var(--purple)}
 .user-chip img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex-shrink:0}
 .user-chip .uname{max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.3}
-.user-chip .avatar-fallback{width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.user-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;box-shadow:var(--shadow-md);padding:8px 0;min-width:180px;z-index:100;display:none}
+.user-chip .avatar-fb{width:28px;height:28px;border-radius:50%;background:var(--purple);color:#fff;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.user-menu{position:absolute;top:calc(100% + 6px);right:0;background:var(--card);border:1.5px solid var(--border);border-radius:12px;box-shadow:var(--shadow-md);padding:8px 0;min-width:160px;z-index:100;display:none}
 .user-menu.open{display:block;animation:fadeUp .2s ease}
-.user-menu-item{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;font-family:inherit;text-align:left}
-.user-menu-item:hover{background:var(--card-hover)}
-.user-menu-item.danger{color:var(--error-text)}
+.umi{display:flex;align-items:center;gap:8px;padding:10px 16px;font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;transition:background .15s;border:none;background:none;width:100%;font-family:inherit;text-align:left}
+.umi:hover{background:var(--card-hover)}
+.umi.danger{color:var(--error-text)}
 
-/* Google login btn (inline, not blocking) */
-.google-login-btn{display:inline-flex;align-items:center;gap:7px;padding:7px 16px 7px 10px;border:1.5px solid var(--border);border-radius:24px;background:var(--card);font-size:12px;font-weight:600;color:var(--text-secondary);cursor:pointer;font-family:inherit;transition:all .2s}
-.google-login-btn:hover{border-color:#4285F4;color:#4285F4;background:rgba(66,133,244,.04)}
-.google-login-btn svg{width:18px;height:18px;flex-shrink:0}
-
-/* API Key Panel */
-.api-panel{overflow:hidden;transition:all .35s ease;max-height:0;opacity:0;margin-bottom:0}
-.api-panel.open{max-height:220px;opacity:1;margin-bottom:20px}
-.api-panel-inner{background:var(--card);border:1.5px solid var(--border);border-radius:14px;padding:16px 20px}
-.api-panel-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-.api-panel-head label{font-size:13px;font-weight:700}
-.api-panel-head a{font-size:11px;color:#4285F4;text-decoration:none;font-weight:600}
-.api-panel-row{display:flex;gap:8px}
-.api-panel-input{flex:1;border:1.5px solid var(--border);border-radius:10px;padding:10px 14px;font-size:13px;font-family:'Courier New',monospace;outline:none;background:var(--post-bg);color:var(--text);transition:border-color .2s}
-.api-panel-input:focus{border-color:#4285F4;background:var(--card)}
-.api-panel-save{padding:10px 16px;border:none;border-radius:10px;background:#4285F4;color:#fff;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit}
-.api-panel-note{font-size:10.5px;color:var(--text-muted);margin-top:8px;line-height:1.5}
-.api-panel-note a{color:#4285F4}
-
-/* Steps */
-.steps-wrap{margin-bottom:28px}
-.steps-indicator{display:flex;align-items:center;justify-content:center}
-.step-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transition:all .3s;background:var(--border);color:var(--text-muted)}
-.step-dot.active{background:var(--purple);color:#fff;box-shadow:0 3px 14px rgba(108,99,255,.35)}
-.step-dot.done{background:var(--naver);color:#fff}
-.step-line{width:72px;height:2px;background:var(--border);transition:background .3s}
-.step-line.active{background:var(--purple)}
-.step-labels{display:flex;justify-content:center;gap:60px;margin-top:8px}
-.step-label{font-size:12px;color:var(--text-muted);font-weight:600;transition:color .3s}
-.step-label.active{color:var(--purple)}.step-label.done{color:var(--naver)}
-
-/* Header */
-.header{text-align:center;margin-bottom:28px}
-.badge{display:inline-block;font-size:13px;font-weight:800;letter-spacing:1px;color:var(--purple);background:rgba(108,99,255,.1);padding:7px 20px;border-radius:20px;margin-bottom:14px}
-.header h1{font-size:32px;font-weight:900;line-height:1.3;margin-bottom:10px}
-.header h1 .accent{color:var(--purple);font-size:42px}
-.header p{font-size:14px;color:var(--text-light);line-height:1.8}
-
-/* Platform */
-.step-section{animation:fadeUp .5s ease}
-.step-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:24px}
-.platform-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
-.platform-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px 12px 24px;background:var(--card);border:2.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1)}
-.platform-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}
-.platform-card.selected{transform:translateY(-5px)}
-.platform-card .check-circle{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;opacity:0;transform:scale(0)}
-.platform-card.selected .check-circle{opacity:1;animation:checkPop .4s ease forwards}
-.platform-card .p-icon-wrap{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;transition:transform .3s}
-.platform-card:hover .p-icon-wrap{transform:scale(1.08)}
-.platform-card .p-icon-wrap svg{width:32px;height:32px}
-.platform-card .p-name{font-size:13px;font-weight:800;text-align:center}
-.platform-card .p-desc{font-size:11px;color:var(--text-muted);font-weight:500;text-align:center}
-
-/* Step2 */
-.selected-platform-badge{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}
-.sp-badge{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:24px;font-size:14px;font-weight:700;color:#fff}
-.sp-badge svg{width:16px;height:16px}
-.sp-change{font-size:13px;color:var(--purple);cursor:pointer;font-weight:600;text-decoration:underline;text-underline-offset:3px}
-.input-wrapper{display:flex;align-items:center;background:var(--card);border:2.5px solid var(--border);border-radius:var(--radius);padding:5px 5px 5px 18px;box-shadow:var(--shadow-sm);transition:border-color .25s,box-shadow .25s}
-.input-wrapper:focus-within{border-color:var(--purple);box-shadow:0 4px 24px rgba(108,99,255,.12)}
-.topic-input{flex:1;border:none;outline:none;font-size:16px;padding:15px 14px;background:transparent;font-family:inherit;color:var(--text)}
-.topic-input::placeholder{color:var(--text-muted)}
-.gen-btn{flex-shrink:0;padding:14px 32px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
-.gen-btn:disabled{opacity:.4;cursor:not-allowed}
-.gen-btn:not(:disabled):hover{transform:translateY(-1px);filter:brightness(1.1)}
-.date-tag{font-size:12px;color:var(--text-muted);text-align:center;margin-top:12px}
-
-/* Loading */
-.loading{text-align:center;padding:56px 20px;animation:fadeUp .4s ease}
-.spinner-wrap{position:relative;width:56px;height:56px;margin:0 auto 20px}
-.spinner-ring{width:56px;height:56px;border:4px solid var(--spinner-track);border-radius:50%;animation:spin .75s linear infinite;position:absolute}
-.spinner-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}
-.spinner-icon svg{width:24px;height:24px}
-.loading-text{font-size:16px;font-weight:600;color:var(--text-secondary);margin-bottom:16px}
-.loading-dots{animation:pulse 1s infinite}
-.progress-bar{max-width:320px;height:4px;background:var(--progress-track);border-radius:2px;margin:0 auto;overflow:hidden}
-.progress-fill{height:100%;border-radius:2px}
-.error-box{padding:16px 22px;background:var(--error-bg);color:var(--error-text);border-radius:12px;font-size:14px;border:1px solid var(--error-border);margin-bottom:20px}
-
-/* Results */
-.results{animation:fadeUp .5s ease}
-.result-platform-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid var(--border-light)}
-.rph-icon svg{width:36px;height:36px}
-.rph-info h2{font-size:22px;font-weight:900;margin-bottom:2px}
-.rph-info p{font-size:13px;color:var(--text-muted)}
-.rph-actions{margin-left:auto;display:flex;gap:8px}
-.new-btn{padding:9px 18px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--text-secondary);transition:all .2s;white-space:nowrap}
-.new-btn:hover{background:var(--card-hover);border-color:var(--purple);color:var(--purple)}
-.section{margin-bottom:32px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title{font-size:17px;font-weight:800;margin:0}
-.titles-list{display:flex;flex-direction:column;gap:10px}
-.title-card{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--card);border-radius:12px;border:1px solid var(--border-light);border-left:4px solid var(--border);cursor:pointer;transition:all .2s}
-.title-card:hover{box-shadow:0 2px 14px rgba(0,0,0,.06)}
-.title-num{flex-shrink:0;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
-.title-text{font-size:15px;font-weight:600;flex:1;line-height:1.55}
-.sel-badge{font-size:11px;color:#fff;padding:4px 12px;border-radius:6px;font-weight:700;flex-shrink:0}
-.post-box{background:var(--post-bg);border:1px solid var(--border-light);border-radius:var(--radius);padding:28px;max-height:560px;overflow-y:auto}
-.post-box::-webkit-scrollbar{width:6px}.post-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
-.post-text{margin:0;font-size:15px;line-height:1.95;white-space:pre-wrap;word-break:break-word;font-family:'Noto Sans KR',sans-serif;color:var(--text-secondary)}
-.kw-wrap{display:flex;flex-wrap:wrap;gap:10px}
-.kw{display:inline-block;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid transparent}
-.copy-btn{padding:8px 16px;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--text-secondary);transition:all .2s;white-space:nowrap}
-.copy-btn:hover{background:var(--card-hover)}.copy-btn.copied{background:var(--copied-bg);border-color:var(--copied-border);color:var(--naver)}
-.bottom-actions{display:flex;gap:12px;justify-content:center;padding-top:20px;border-top:1px solid var(--border-light);margin-top:24px}
-.copy-all-btn{padding:14px 36px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
-.copy-all-btn:hover{opacity:.9;transform:translateY(-1px)}
-
-/* Community */
-.community{margin-top:52px;padding:36px 32px;border-radius:var(--radius);background:var(--community-bg);border:1px solid var(--community-border);text-align:center}
-.community-title{font-size:17px;font-weight:800;margin-bottom:6px}
-.community-sub{font-size:13px;color:var(--text-muted);margin-bottom:22px}
-.community-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
-.community-link{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:12px;background:var(--link-card-bg);border:1.5px solid var(--link-card-border);text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .2s;font-family:inherit}
-.community-link:hover{border-color:var(--purple);color:var(--purple);background:var(--link-card-hover);transform:translateY(-2px)}
-.community-link .cl-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;flex-shrink:0}
+/* Steps,Header,Platform,Step2,Loading,Error,Results,Community,Footer - same as before */
+.steps-wrap{margin-bottom:28px}.steps-indicator{display:flex;align-items:center;justify-content:center}.step-dot{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;transition:all .3s;background:var(--border);color:var(--text-muted)}.step-dot.active{background:var(--purple);color:#fff;box-shadow:0 3px 14px rgba(108,99,255,.35)}.step-dot.done{background:var(--naver);color:#fff}.step-line{width:72px;height:2px;background:var(--border);transition:background .3s}.step-line.active{background:var(--purple)}.step-labels{display:flex;justify-content:center;gap:60px;margin-top:8px}.step-label{font-size:12px;color:var(--text-muted);font-weight:600}.step-label.active{color:var(--purple)}.step-label.done{color:var(--naver)}
+.header{text-align:center;margin-bottom:28px}.badge{display:inline-block;font-size:13px;font-weight:800;letter-spacing:1px;color:var(--purple);background:rgba(108,99,255,.1);padding:7px 20px;border-radius:20px;margin-bottom:14px}.header h1{font-size:32px;font-weight:900;line-height:1.3;margin-bottom:10px}.header h1 .accent{color:var(--purple);font-size:42px}.header p{font-size:14px;color:var(--text-light);line-height:1.8}
+.step-section{animation:fadeUp .5s ease}.step-title{font-size:20px;font-weight:800;text-align:center;margin-bottom:24px}
+.platform-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.platform-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:30px 12px 24px;background:var(--card);border:2.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:all .3s cubic-bezier(.4,0,.2,1)}.platform-card:hover{transform:translateY(-5px);box-shadow:var(--shadow-md)}.platform-card.selected{transform:translateY(-5px)}.platform-card .check-circle{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:900;opacity:0;transform:scale(0)}.platform-card.selected .check-circle{opacity:1;animation:checkPop .4s ease forwards}.platform-card .p-icon-wrap{width:60px;height:60px;border-radius:18px;display:flex;align-items:center;justify-content:center;transition:transform .3s}.platform-card:hover .p-icon-wrap{transform:scale(1.08)}.platform-card .p-icon-wrap svg{width:32px;height:32px}.platform-card .p-name{font-size:13px;font-weight:800;text-align:center}.platform-card .p-desc{font-size:11px;color:var(--text-muted);font-weight:500;text-align:center}
+.selected-platform-badge{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:20px}.sp-badge{display:inline-flex;align-items:center;gap:7px;padding:9px 20px;border-radius:24px;font-size:14px;font-weight:700;color:#fff}.sp-badge svg{width:16px;height:16px}.sp-change{font-size:13px;color:var(--purple);cursor:pointer;font-weight:600;text-decoration:underline;text-underline-offset:3px}
+.input-wrapper{display:flex;align-items:center;background:var(--card);border:2.5px solid var(--border);border-radius:var(--radius);padding:5px 5px 5px 18px;box-shadow:var(--shadow-sm);transition:border-color .25s,box-shadow .25s}.input-wrapper:focus-within{border-color:var(--purple);box-shadow:0 4px 24px rgba(108,99,255,.12)}.topic-input{flex:1;border:none;outline:none;font-size:16px;padding:15px 14px;background:transparent;font-family:inherit;color:var(--text)}.topic-input::placeholder{color:var(--text-muted)}.gen-btn{flex-shrink:0;padding:14px 32px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}.gen-btn:disabled{opacity:.4;cursor:not-allowed}.gen-btn:not(:disabled):hover{transform:translateY(-1px);filter:brightness(1.1)}.date-tag{font-size:12px;color:var(--text-muted);text-align:center;margin-top:12px}
+.loading{text-align:center;padding:56px 20px;animation:fadeUp .4s ease}.spinner-wrap{position:relative;width:56px;height:56px;margin:0 auto 20px}.spinner-ring{width:56px;height:56px;border:4px solid var(--spinner-track);border-radius:50%;animation:spin .75s linear infinite;position:absolute}.spinner-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}.spinner-icon svg{width:24px;height:24px}.loading-text{font-size:16px;font-weight:600;color:var(--text-secondary);margin-bottom:16px}.loading-dots{animation:pulse 1s infinite}.progress-bar{max-width:320px;height:4px;background:var(--progress-track);border-radius:2px;margin:0 auto;overflow:hidden}.progress-fill{height:100%;border-radius:2px}
+.error-box{padding:16px 22px;background:var(--error-bg);color:var(--error-text);border-radius:12px;font-size:14px;border:1px solid var(--error-border);margin-bottom:20px;line-height:1.7;white-space:pre-wrap}
+.results{animation:fadeUp .5s ease}.result-platform-header{display:flex;align-items:center;gap:14px;margin-bottom:28px;padding-bottom:18px;border-bottom:2px solid var(--border-light)}.rph-icon svg{width:36px;height:36px}.rph-info h2{font-size:22px;font-weight:900;margin-bottom:2px}.rph-info p{font-size:13px;color:var(--text-muted)}.rph-actions{margin-left:auto;display:flex;gap:8px}.new-btn{padding:9px 18px;border:1.5px solid var(--border);border-radius:10px;background:var(--card);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--text-secondary);transition:all .2s;white-space:nowrap}.new-btn:hover{background:var(--card-hover);border-color:var(--purple);color:var(--purple)}
+.section{margin-bottom:32px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title{font-size:17px;font-weight:800;margin:0}.titles-list{display:flex;flex-direction:column;gap:10px}.title-card{display:flex;align-items:center;gap:14px;padding:16px 18px;background:var(--card);border-radius:12px;border:1px solid var(--border-light);border-left:4px solid var(--border);cursor:pointer;transition:all .2s}.title-card:hover{box-shadow:0 2px 14px rgba(0,0,0,.06)}.title-num{flex-shrink:0;width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}.title-text{font-size:15px;font-weight:600;flex:1;line-height:1.55}.sel-badge{font-size:11px;color:#fff;padding:4px 12px;border-radius:6px;font-weight:700;flex-shrink:0}
+.post-box{background:var(--post-bg);border:1px solid var(--border-light);border-radius:var(--radius);padding:28px;max-height:560px;overflow-y:auto}.post-box::-webkit-scrollbar{width:6px}.post-box::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}.post-text{margin:0;font-size:15px;line-height:1.95;white-space:pre-wrap;word-break:break-word;font-family:'Noto Sans KR',sans-serif;color:var(--text-secondary)}
+.kw-wrap{display:flex;flex-wrap:wrap;gap:10px}.kw{display:inline-block;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:600;border:1px solid transparent}
+.copy-btn{padding:8px 16px;border:1px solid var(--border);border-radius:10px;background:var(--card);font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--text-secondary);transition:all .2s;white-space:nowrap}.copy-btn:hover{background:var(--card-hover)}.copy-btn.copied{background:var(--copied-bg);border-color:var(--copied-border);color:var(--naver)}
+.bottom-actions{display:flex;gap:12px;justify-content:center;padding-top:20px;border-top:1px solid var(--border-light);margin-top:24px}.copy-all-btn{padding:14px 36px;border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}.copy-all-btn:hover{opacity:.9;transform:translateY(-1px)}
+.community{margin-top:52px;padding:36px 32px;border-radius:var(--radius);background:var(--community-bg);border:1px solid var(--community-border);text-align:center}.community-title{font-size:17px;font-weight:800;margin-bottom:6px}.community-sub{font-size:13px;color:var(--text-muted);margin-bottom:22px}.community-links{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}.community-link{display:inline-flex;align-items:center;gap:7px;padding:10px 16px;border-radius:12px;background:var(--link-card-bg);border:1.5px solid var(--link-card-border);text-decoration:none;color:var(--text-secondary);font-size:13px;font-weight:600;transition:all .2s;font-family:inherit}.community-link:hover{border-color:var(--purple);color:var(--purple);background:var(--link-card-hover);transform:translateY(-2px)}.community-link .cl-icon{width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;flex-shrink:0}
 .footer{text-align:center;margin-top:28px;padding:22px 0;font-size:12px;color:var(--text-muted);border-top:1px solid var(--border-light)}
 
 @media(max-width:768px){.container{padding:24px 20px}.header h1{font-size:26px}.header h1 .accent{font-size:34px}.platform-grid{grid-template-columns:repeat(3,1fr);gap:10px}.platform-card{padding:24px 10px 20px}.platform-card .p-icon-wrap{width:52px;height:52px}.platform-card .p-icon-wrap svg{width:28px;height:28px}.step-line{width:48px}.step-labels{gap:38px}.result-platform-header{flex-wrap:wrap}.rph-actions{margin-left:0;margin-top:8px;width:100%}}
-@media(max-width:480px){
-.container{padding:16px 14px}.home-btn{padding:8px 12px;font-size:12px;gap:4px;border-radius:8px}.home-btn svg{width:14px;height:14px}.top-right{gap:5px}.theme-toggle{padding:7px 10px;font-size:11px;gap:5px;border-radius:8px}.google-login-btn{padding:6px 12px 6px 8px;font-size:11px;border-radius:20px}.google-login-btn svg{width:16px;height:16px}.user-chip{padding:4px 10px 4px 4px;font-size:11px}.user-chip img,.user-chip .avatar-fallback{width:24px;height:24px;font-size:10px}.user-chip .uname{max-width:70px}.api-panel-inner{padding:12px 14px}.api-panel-row{flex-direction:column;gap:6px}.api-panel-input{font-size:12px;padding:9px 12px}
-.steps-wrap{margin-bottom:20px}.step-dot{width:30px;height:30px;font-size:12px}.step-line{width:28px}.step-labels{gap:18px;margin-top:5px}.step-label{font-size:10px}
-.header{margin-bottom:20px}.badge{font-size:10px;padding:5px 14px;margin-bottom:10px}.header h1{font-size:22px}.header h1 .accent{font-size:28px}.header p{font-size:12px}.header p br{display:none}
-.step-title{font-size:16px;margin-bottom:16px}.platform-grid{grid-template-columns:repeat(2,1fr);gap:10px}.platform-grid .platform-card:nth-child(5){grid-column:1/-1;max-width:52%;margin:0 auto}.platform-card{padding:22px 10px 18px;gap:7px;border-width:2px;border-radius:14px}.platform-card .p-icon-wrap{width:48px;height:48px;border-radius:14px}.platform-card .p-icon-wrap svg{width:26px;height:26px}.platform-card .p-name{font-size:12px}.platform-card .p-desc{font-size:9.5px}
-.sp-badge{padding:7px 14px;font-size:12px}.sp-change{font-size:11px}.input-wrapper{border-radius:12px;padding:3px 3px 3px 12px;border-width:2px}.topic-input{font-size:14px;padding:12px 10px}.gen-btn{padding:12px 18px;font-size:14px;border-radius:10px}
-.loading{padding:36px 16px}.spinner-wrap{width:46px;height:46px}.spinner-ring{width:46px;height:46px;border-width:3px}.loading-text{font-size:13px}.progress-bar{max-width:220px;height:3px}
-.result-platform-header{flex-direction:column;text-align:center;gap:8px}.rph-actions{justify-content:center;gap:6px;width:100%}.new-btn{padding:8px 14px;font-size:12px;flex:1;text-align:center}
-.section{margin-bottom:22px}.section-title{font-size:14px}.title-card{padding:12px;gap:10px;border-radius:10px}.title-num{width:24px;height:24px;font-size:11px}.title-text{font-size:13px}.sel-badge{font-size:9px;padding:3px 8px}
-.post-box{padding:16px;border-radius:12px;max-height:400px}.post-text{font-size:13px;line-height:1.85}.kw-wrap{gap:6px}.kw{padding:6px 11px;font-size:11.5px;border-radius:16px}
-.copy-btn{padding:6px 12px;font-size:11.5px;border-radius:8px}.bottom-actions{padding-top:14px;margin-top:16px}.copy-all-btn{padding:12px 24px;font-size:14px;width:100%}
-.community{margin-top:32px;padding:24px 16px;border-radius:14px}.community-title{font-size:14px}.community-sub{font-size:11px;margin-bottom:16px}.community-links{gap:7px}.community-link{padding:8px 12px;font-size:11px;gap:5px}.footer{margin-top:20px;padding:16px 0;font-size:10.5px}
-}
+@media(max-width:480px){.container{padding:16px 14px}.login-card{padding:32px 24px;border-radius:20px}.login-card h2{font-size:20px}.login-card h2 .accent{font-size:26px}.login-card .login-desc{font-size:12px;margin-bottom:22px}.google-btn{padding:12px 24px;font-size:14px;border-radius:12px}.login-footer{font-size:10px}.home-btn{padding:8px 12px;font-size:12px;gap:4px;border-radius:8px}.home-btn svg{width:14px;height:14px}.top-right{gap:5px}.theme-toggle{padding:7px 10px;font-size:11px;gap:5px;border-radius:8px}.user-chip{padding:4px 10px 4px 4px;font-size:11px}.user-chip img,.user-chip .avatar-fb{width:24px;height:24px;font-size:10px}.user-chip .uname{max-width:70px}.steps-wrap{margin-bottom:20px}.step-dot{width:30px;height:30px;font-size:12px}.step-line{width:28px}.step-labels{gap:18px;margin-top:5px}.step-label{font-size:10px}.header{margin-bottom:20px}.badge{font-size:10px;padding:5px 14px;margin-bottom:10px}.header h1{font-size:22px}.header h1 .accent{font-size:28px}.header p{font-size:12px}.header p br{display:none}.step-title{font-size:16px;margin-bottom:16px}.platform-grid{grid-template-columns:repeat(2,1fr);gap:10px}.platform-grid .platform-card:nth-child(5){grid-column:1/-1;max-width:52%;margin:0 auto}.platform-card{padding:22px 10px 18px;gap:7px;border-width:2px;border-radius:14px}.platform-card .p-icon-wrap{width:48px;height:48px;border-radius:14px}.platform-card .p-icon-wrap svg{width:26px;height:26px}.platform-card .p-name{font-size:12px}.platform-card .p-desc{font-size:9.5px}.sp-badge{padding:7px 14px;font-size:12px}.sp-change{font-size:11px}.input-wrapper{border-radius:12px;padding:3px 3px 3px 12px;border-width:2px}.topic-input{font-size:14px;padding:12px 10px}.gen-btn{padding:12px 18px;font-size:14px;border-radius:10px}.loading{padding:36px 16px}.spinner-wrap{width:46px;height:46px}.spinner-ring{width:46px;height:46px;border-width:3px}.loading-text{font-size:13px}.progress-bar{max-width:220px;height:3px}.result-platform-header{flex-direction:column;text-align:center;gap:8px}.rph-actions{justify-content:center;gap:6px;width:100%}.new-btn{padding:8px 14px;font-size:12px;flex:1;text-align:center}.section{margin-bottom:22px}.section-title{font-size:14px}.title-card{padding:12px;gap:10px;border-radius:10px}.title-num{width:24px;height:24px;font-size:11px}.title-text{font-size:13px}.sel-badge{font-size:9px;padding:3px 8px}.post-box{padding:16px;border-radius:12px;max-height:400px}.post-text{font-size:13px;line-height:1.85}.kw-wrap{gap:6px}.kw{padding:6px 11px;font-size:11.5px;border-radius:16px}.copy-btn{padding:6px 12px;font-size:11.5px;border-radius:8px}.bottom-actions{padding-top:14px;margin-top:16px}.copy-all-btn{padding:12px 24px;font-size:14px;width:100%}.community{margin-top:32px;padding:24px 16px;border-radius:14px}.community-title{font-size:14px}.community-sub{font-size:11px;margin-bottom:16px}.community-links{gap:7px}.community-link{padding:8px 12px;font-size:11px;gap:5px}.footer{margin-top:20px;padding:16px 0;font-size:10.5px}}
 @media(min-width:1200px){.container{max-width:960px;padding:48px 40px 36px}.header h1{font-size:36px}.header h1 .accent{font-size:48px}.header p{font-size:15px}.platform-card{padding:34px 16px 28px}.platform-card .p-icon-wrap{width:68px;height:68px;border-radius:20px}.platform-card .p-icon-wrap svg{width:36px;height:36px}}
 </style>
 </head>
 <body>
-<div class="container">
 
+<!-- LOGIN SCREEN -->
+<div class="login-overlay" id="loginOverlay">
+  <div class="login-card">
+    <div class="lbadge">유쌤AI콘텐츠마케팅최적화도구</div>
+    <h2><span class="accent">5</span>대 플랫폼<br>콘텐츠 최적화 생성기</h2>
+    <p class="login-desc">구글 계정으로 로그인하면<br>바로 AI 콘텐츠 자동 생성을 이용할 수 있습니다</p>
+    <button class="google-btn" id="loginBtn" onclick="doLogin()">
+      <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+      Google 계정으로 시작하기
+    </button>
+    <div class="login-footer">Google 계정의 Gemini AI를 활용합니다<br>별도 API 키 입력이 필요 없습니다</div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="container">
   <div class="top-bar">
     <button class="home-btn" onclick="goHome()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>홈</button>
     <div class="top-right">
-      <!-- API Key button (always visible) -->
-      <button class="google-login-btn" onclick="toggleMyKeyPanel()" style="gap:5px">🔑 API 키</button>
-      <!-- Google Login Button (shown when not logged in) -->
-      <button class="google-login-btn" id="googleLoginBtn" onclick="doGoogleLogin()">
-        <svg viewBox="0 0 24 24"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 01-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
-        Google 로그인
-      </button>
-      <!-- User Chip (shown when logged in) -->
       <div class="user-chip" id="userChip" onclick="toggleUserMenu()" style="display:none">
         <img id="userAvatar" src="" alt="" referrerpolicy="no-referrer" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="display:none">
-        <span class="avatar-fallback" id="userAvatarFallback">👤</span>
+        <span class="avatar-fb" id="avatarFb">👤</span>
         <span class="uname" id="userName"></span>
         <div class="user-menu" id="userMenu">
-          <button class="user-menu-item" onclick="event.stopPropagation();toggleMyKeyPanel()">🔑 내 API 키 설정</button>
-          <button class="user-menu-item danger" onclick="event.stopPropagation();doLogout()">🚪 로그아웃</button>
+          <button class="umi danger" onclick="event.stopPropagation();doLogout()">🚪 로그아웃</button>
         </div>
       </div>
       <button class="theme-toggle" onclick="toggleTheme()"><span id="themeIcon">🌙</span><span id="themeLabel">다크모드</span></button>
-    </div>
-  </div>
-
-  <!-- Optional: My API Key Panel -->
-  <div class="api-panel" id="apiPanel">
-    <div class="api-panel-inner">
-      <div class="api-panel-head"><label>🔑 내 Google Gemini API Key (선택)</label><a href="https://aistudio.google.com/apikey" target="_blank">발급받기 →</a></div>
-      <div class="api-panel-row">
-        <input type="password" id="myApiKeyInput" class="api-panel-input" placeholder="AIzaSy... (유료 요금제용, 선택사항)">
-        <button class="api-panel-save" onclick="saveMyKey()">저장</button>
-      </div>
-      <div class="api-panel-note">💡 유료 요금제 사용 시 입력하면 더 빠른 속도 이용 가능 · 입력하지 않으면 기본 무료 키 사용</div>
-      <div style="margin-top:10px"><button onclick="testApiKey()" style="padding:8px 14px;border:1.5px solid var(--border);border-radius:8px;background:var(--card);font-size:11px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--text-secondary)">🧪 API 키 테스트</button></div>
-      <div id="myApiStatus"></div>
     </div>
   </div>
 
@@ -263,135 +133,122 @@ body{font-family:'Noto Sans KR','Apple SD Gothic Neo',sans-serif;background:var(
   <div class="footer"><span>유쌤클래스 · AI콘텐츠마케팅연구소</span><span style="margin:0 6px">·</span><span>Powered by 친절한유성쌤</span></div>
 </div>
 
-<!-- Google Identity Services (loaded async) -->
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <script>
 /*
- ┌──────────────────────────────────────────────────────────────┐
- │  ★ 관리자 설정 (아래 2곳만 수정하세요)                       │
- │                                                              │
- │  1. DEFAULT_API_KEY : 무료 사용자용 Google Gemini API 키     │
- │     → https://aistudio.google.com/apikey 에서 무료 발급      │
- │                                                              │
- │  2. GOOGLE_CLIENT_ID : 구글 로그인용 (선택사항)              │
- │     → 설정 안 하면 로그인 없이 바로 사용 가능                │
- │     → https://console.cloud.google.com/apis/credentials      │
- └──────────────────────────────────────────────────────────────┘
+ ┌───────────────────────────────────────────────────────────┐
+ │  ★ 관리자 설정: Google Cloud Console에서 만든             │
+ │    OAuth 2.0 클라이언트 ID를 아래에 입력하세요             │
+ │                                                           │
+ │  만드는 방법:                                             │
+ │  1. https://console.cloud.google.com 접속                 │
+ │  2. 새 프로젝트 생성 (또는 기존 프로젝트 선택)            │
+ │  3. API 및 서비스 → 사용자 인증 정보                      │
+ │  4. + 사용자 인증 정보 만들기 → OAuth 클라이언트 ID       │
+ │  5. 애플리케이션 유형: 웹 애플리케이션                     │
+ │  6. 승인된 자바스크립트 원본에 사이트 URL 추가             │
+ │  7. OAuth 동의 화면도 설정 (외부, 테스트 모드 OK)         │
+ │  8. Generative Language API 사용 설정                     │
+ └───────────────────────────────────────────────────────────┘
 */
-const DEFAULT_API_KEY = 'YOUR_API_KEY_HERE';
-const GOOGLE_CLIENT_ID = '214036524373-ftsllao5u25u79rrji2uhhj2bcvrt9e0.apps.googleusercontent.com';  // 비워두면 Google 로그인 버튼 숨김
+const GOOGLE_CLIENT_ID = 'YOUR_CLIENT_ID.apps.googleusercontent.com';
 
 // ── Icons ──
 const ICONS={naver:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>',facebook:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
 const IC16={naver:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2z"/></svg>',facebook:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
 const ICLG={naver:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#03C75A"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>',tistory:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF5A4A"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>',instagram:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1-1.8-.2-2.2-.4c-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2z"/></svg>',facebook:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>',youtube:'<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2c-.5 1.9-.5 5.8-.5 5.8s0 3.9.5 5.8a3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1c.6-1.9.5-5.8.5-5.8s0-3.9-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>'};
-
 const P=[{id:"naver",name:"네이버 블로그",color:"#03C75A",desc:"검색 최적화 · SEO",ph:"예: AI 활용 블로그 마케팅 전략"},{id:"tistory",name:"티스토리",color:"#FF5A4A",desc:"구글 SEO · 롱폼",ph:"예: 챗GPT 프롬프트 작성법 가이드"},{id:"instagram",name:"인스타그램",color:"#E1306C",desc:"해시태그 · 릴스",ph:"예: 요즘 핫한 카페 투어 브이로그"},{id:"facebook",name:"페이스북",color:"#1877F2",desc:"공유 · 커뮤니티",ph:"예: 직장인을 위한 생산성 꿀팁"},{id:"youtube",name:"유튜브",color:"#FF0000",desc:"영상 SEO · 설명란",ph:"예: AI 영상 편집 도구 비교 리뷰"}];
 const PR={naver:'[네이버 블로그] 제목: 핵심 키워드 앞배치, 30자 이내. 본문: 2000자 이상, 소제목, ~입니다체, 이모지, 줄바꿈. 키워드 10개.',tistory:'[티스토리] 제목: 구글SEO, 50자 이내. 본문: 2500자 이상, H2/H3 구조, 롱폼. 키워드 10개.',instagram:'[인스타그램] 제목: 짧은 후킹문구+이모지. 캡션: 2200자 이내, 줄바꿈, 스토리텔링, CTA, 이모지. 해시태그 15개(#포함, 대+중+소).',facebook:'[페이스북] 제목: 공유유도 감성/호기심. 본문: 공감 스토리텔링, 질문CTA, 공유유도. 키워드 10개.',youtube:'[유튜브] 제목: CTR높은 60자이내, 숫자/감정. 설명란: 타임스탬프, 구독CTA, 링크안내. 태그 10개.'};
 const LM={naver:["네이버 검색 트렌드 분석 중","키워드 경쟁력 분석 중","SEO 제목 생성 중","블로그 본문 작성 중","키워드 추출 중","최종 검수 중"],tistory:["구글 검색 트렌드 분석 중","SEO 구조 설계 중","롱폼 제목 생성 중","H2/H3 본문 작성 중","SEO 키워드 추출 중","최종 검수 중"],instagram:["인스타 트렌드 분석 중","해시태그 전략 수립 중","후킹 제목 생성 중","캡션 작성 중","해시태그 생성 중","최종 검수 중"],facebook:["페이스북 알고리즘 분석 중","공유 패턴 분석 중","바이럴 제목 생성 중","스토리텔링 본문 작성 중","키워드 추출 중","최종 검수 중"],youtube:["유튜브 검색 분석 중","CTR 전략 수립 중","클릭률 높은 제목 생성 중","설명란 작성 중","태그 생성 중","최종 검수 중"]};
 
-let sp=null,rd=null,sti=0,ct='',lt=null,loggedInUser=null;
+let sp=null,rd=null,sti=0,ct='',lt=null;
+let userInfo=null;    // {name, email, picture}
+let accessToken=null; // Google OAuth access token
+let tokenClient=null; // Google Token Client
 
 // ── Theme ──
 function toggleTheme(){const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('themeIcon').textContent=d?'🌙':'☀️';document.getElementById('themeLabel').textContent=d?'다크모드':'라이트모드';try{localStorage.setItem('theme',d?'light':'dark');}catch{}}
 function loadTheme(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeIcon').textContent='☀️';document.getElementById('themeLabel').textContent='라이트모드';}}catch{}}
 
-// ── Google Login ──
-function decodeJwt(token){
-  const base64=token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
-  const raw=atob(base64);
-  return JSON.parse(decodeURIComponent(Array.from(raw).map(c=>'%'+('00'+c.charCodeAt(0).toString(16)).slice(-2)).join('')));
-}
-function handleCredentialResponse(response){
-  const p=decodeJwt(response.credential);
-  loggedInUser={name:p.name||p.email,email:p.email,picture:p.picture};
-  try{localStorage.setItem('guser',JSON.stringify(loggedInUser));}catch{}
-  showLoggedIn();
-}
-function doGoogleLogin(){
-  if(!GOOGLE_CLIENT_ID){alert('관리자가 Google 로그인을 아직 설정하지 않았습니다.\n로그인 없이 바로 사용하실 수 있습니다!');return;}
+// ── Google OAuth2 Login ──
+function initGoogleAuth(){
+  if(!GOOGLE_CLIENT_ID||GOOGLE_CLIENT_ID.includes('YOUR_CLIENT_ID'))return;
   try{
-    google.accounts.id.initialize({client_id:GOOGLE_CLIENT_ID,callback:handleCredentialResponse,auto_select:true});
-    google.accounts.id.prompt();
-  }catch(e){alert('Google 로그인을 불러오는 중 오류가 발생했습니다.\n로그인 없이 바로 사용하실 수 있습니다!');}
+    tokenClient=google.accounts.oauth2.initTokenClient({
+      client_id: GOOGLE_CLIENT_ID,
+      scope: 'https://www.googleapis.com/auth/generative-language.retriever https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email',
+      callback: onTokenResponse,
+    });
+  }catch(e){console.error('Google Auth init error:',e);}
 }
+
+function doLogin(){
+  if(!tokenClient){
+    alert('⚠️ Google 로그인이 아직 준비되지 않았습니다.\n\n잠시 후 다시 시도하거나, 페이지를 새로고침 해주세요.\n\n(관리자: GOOGLE_CLIENT_ID가 올바르게 설정되어 있는지 확인하세요)');
+    return;
+  }
+  tokenClient.requestAccessToken();
+}
+
+function onTokenResponse(resp){
+  if(resp.error){console.error('Token error:',resp);alert('로그인 중 오류: '+resp.error);return;}
+  accessToken=resp.access_token;
+  // Fetch user profile
+  fetch('https://www.googleapis.com/oauth2/v2/userinfo',{headers:{'Authorization':'Bearer '+accessToken}})
+  .then(r=>r.json()).then(data=>{
+    userInfo={name:data.name||data.email,email:data.email,picture:data.picture};
+    try{localStorage.setItem('guser',JSON.stringify(userInfo));}catch{}
+    showLoggedIn();
+  }).catch(()=>{
+    userInfo={name:'사용자',email:'',picture:''};
+    showLoggedIn();
+  });
+}
+
 function showLoggedIn(){
-  document.getElementById('googleLoginBtn').style.display='none';
+  document.getElementById('loginOverlay').classList.add('hidden');
   const chip=document.getElementById('userChip');chip.style.display='inline-flex';
-  const av=document.getElementById('userAvatar'),fb=document.getElementById('userAvatarFallback');
-  if(loggedInUser.picture){av.src=loggedInUser.picture;av.style.display='';fb.style.display='none';}
-  else{av.style.display='none';fb.style.display='flex';fb.textContent=(loggedInUser.name||'U').charAt(0);}
-  document.getElementById('userName').textContent=loggedInUser.name||loggedInUser.email||'사용자';
+  const av=document.getElementById('userAvatar'),fb=document.getElementById('avatarFb');
+  if(userInfo.picture){av.src=userInfo.picture;av.style.display='';fb.style.display='none';}
+  else{av.style.display='none';fb.style.display='flex';fb.textContent=(userInfo.name||'U').charAt(0);}
+  document.getElementById('userName').textContent=userInfo.name;
 }
+
 function doLogout(){
-  loggedInUser=null;try{localStorage.removeItem('guser');}catch{}
-  document.getElementById('googleLoginBtn').style.display='inline-flex';
+  if(accessToken){try{google.accounts.oauth2.revoke(accessToken);}catch{}}
+  accessToken=null;userInfo=null;
+  try{localStorage.removeItem('guser');}catch{}
+  document.getElementById('loginOverlay').classList.remove('hidden');
   document.getElementById('userChip').style.display='none';
   document.getElementById('userMenu').classList.remove('open');
-  document.getElementById('apiPanel').classList.remove('open');
+  goHome();
 }
 function toggleUserMenu(){document.getElementById('userMenu').classList.toggle('open');}
-function toggleMyKeyPanel(){document.getElementById('apiPanel').classList.toggle('open');const m=document.getElementById('userMenu');if(m)m.classList.remove('open');}
 
-// ── API Key ──
-function getActiveKey(){const mk=(document.getElementById('myApiKeyInput').value.trim())||loadMyKey();return mk||DEFAULT_API_KEY;}
-function loadMyKey(){try{return localStorage.getItem('my_gemini_key')||'';}catch{return '';}}
-function saveMyKey(){const k=document.getElementById('myApiKeyInput').value.trim();if(!k){showMyStatus('⚠️ 키를 입력해주세요','#c53030');return;}try{localStorage.setItem('my_gemini_key',k);showMyStatus('✅ 저장 완료!','#03C75A');}catch{showMyStatus('⚠️ 저장 실패','#c53030');}}
-function showMyStatus(m,c){const e=document.getElementById('myApiStatus');e.innerHTML=`<div style="font-size:11px;font-weight:600;margin-top:6px;color:${c}">${m}</div>`;setTimeout(()=>e.innerHTML='',4000);}
-
-// API 키 테스트
-async function testApiKey(){
-  const key=getActiveKey();
-  if(!key||key==='YOUR_API_KEY_HERE'){showMyStatus('⚠️ 테스트할 API 키가 없습니다','#c53030');return;}
-  showMyStatus('🔄 테스트 중...','#666');
-  try{
-    const txt=await callGemini(key,'안녕하세요라고 한 마디만 해주세요.');
-    showMyStatus('✅ API 키 정상 작동! 사용 가능합니다','#03C75A');
-  }catch(e){
-    let msg=e.message||String(e);
-    if(msg.includes('API key not valid')||msg.includes('API_KEY_INVALID')) msg='❌ API 키가 유효하지 않습니다. 키를 다시 확인해주세요.';
-    else if(msg.includes('403')) msg='❌ 권한 부족. Google AI Studio에서 API가 활성화되어 있는지 확인하세요.';
-    else if(msg.includes('429')) msg='⚠️ 사용량 초과. 잠시 후 다시 시도해주세요.';
-    else msg='❌ 오류: '+msg;
-    showMyStatus(msg,'#c53030');
-  }
-}
-
-// Gemini API 호출 함수 (모델 자동 선택)
-const MODELS=['gemini-2.0-flash','gemini-1.5-flash','gemini-1.5-flash-latest','gemini-pro'];
-async function callGemini(apiKey, prompt){
+// ── Gemini API Call (with OAuth access token) ──
+async function callGemini(prompt){
+  if(!accessToken) throw new Error('로그인이 필요합니다. 페이지를 새로고침 후 다시 로그인해주세요.');
+  const models=['gemini-2.0-flash','gemini-1.5-flash','gemini-pro'];
   let lastErr='';
-  for(const model of MODELS){
+  for(const model of models){
     try{
-      const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const url=`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent`;
       const resp=await fetch(url,{
         method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({
-          contents:[{parts:[{text:prompt}]}],
-          generationConfig:{temperature:0.9,maxOutputTokens:8192}
-        })
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+accessToken},
+        body:JSON.stringify({contents:[{parts:[{text:prompt}]}],generationConfig:{temperature:0.9,maxOutputTokens:8192}})
       });
+      if(resp.status===401||resp.status===403){
+        // Token expired → re-login
+        accessToken=null;
+        throw new Error('인증이 만료되었습니다. 다시 로그인해주세요.');
+      }
       const data=await resp.json();
-      if(data.error){
-        lastErr=`[${model}] ${data.error.message||JSON.stringify(data.error)}`;
-        if(data.error.code===400||data.error.code===404) continue; // 모델 없음 → 다음 시도
-        throw new Error(lastErr);
-      }
-      if(!data.candidates||!data.candidates[0]){
-        lastErr=`[${model}] 응답이 비어있습니다`;
-        continue;
-      }
-      const txt=data.candidates[0].content.parts.map(x=>x.text||'').join('');
-      return txt;
-    }catch(e){
-      lastErr=e.message||String(e);
-      if(e.message&&(e.message.includes('API key')||e.message.includes('403')||e.message.includes('401'))) throw e;
-      continue;
-    }
+      if(data.error){lastErr=data.error.message||JSON.stringify(data.error);if(resp.status===404||resp.status===400)continue;throw new Error(lastErr);}
+      if(!data.candidates||!data.candidates[0]){lastErr='응답이 비어있습니다';continue;}
+      return data.candidates[0].content.parts.map(x=>x.text||'').join('');
+    }catch(e){lastErr=e.message;if(e.message.includes('인증')||e.message.includes('401'))throw e;continue;}
   }
-  throw new Error(lastErr||'모든 모델에서 응답을 받지 못했습니다.');
+  throw new Error(lastErr||'응답을 받지 못했습니다.');
 }
 
 // ── Steps ──
@@ -404,8 +261,7 @@ function goHome(){sp=null;rd=null;sti=0;ct='';document.getElementById('topicInpu
 async function generate(){
   const topic=document.getElementById('topicInput').value.trim();
   if(!topic){alert('주제를 입력해주세요!');return;}
-  const apiKey=getActiveKey();
-  if(!apiKey||apiKey==='YOUR_API_KEY_HERE'){alert('⚠️ API 키가 설정되지 않았습니다.\n\nindex.html 파일에서 DEFAULT_API_KEY 값을 수정하거나,\n우측 상단 프로필 → [🔑 내 API 키 설정]에서 직접 입력해주세요.\n\nAPI 키 발급: https://aistudio.google.com/apikey');return;}
+  if(!accessToken){alert('로그인이 필요합니다. 페이지를 새로고침 후 다시 로그인해주세요.');return;}
   ct=topic;const p=sp,btn=document.getElementById('genBtn');btn.disabled=true;btn.textContent='생성 중...';
   document.getElementById('step2').style.display='none';const la=document.getElementById('loadingArea');la.style.display='block';
   document.getElementById('spinnerRing').style.borderTopColor=p.color;
@@ -414,38 +270,22 @@ async function generate(){
   const msgs=LM[p.id];let mi=0;document.getElementById('loadingMsg').innerHTML='🔍 '+msgs[0]+'...<span class="loading-dots">...</span>';
   lt=setInterval(()=>{mi=(mi+1)%msgs.length;document.getElementById('loadingMsg').innerHTML='✨ '+msgs[mi]+'...<span class="loading-dots">...</span>';},3000);
   rd=null;sti=0;const kwL=p.id==='instagram'?'해시태그':'키워드',kwN=p.id==='instagram'?15:10;
-  const prompt=`당신은 대한민국 최고의 ${p.name} 콘텐츠 마케팅 전문가입니다. 2026년 3월 19일 기준 최신 트렌드를 반영합니다.
-
-반드시 아래 JSON 형식으로만 응답하세요. 마크다운 백틱이나 다른 텍스트 없이 순수 JSON만 출력하세요.
-
-{"titles":["제목1","제목2","제목3","제목4","제목5"],"post":"최적화된 포스팅 본문","keywords":[${Array.from({length:kwN},(_,i)=>`"${kwL}${i+1}"`).join(',')}]}
-
-${PR[p.id]}
-
-주제: "${topic}"
-
-위 주제로 ${p.name}에 최적화된 제목 5개, 포스팅 글, ${kwL}를 JSON으로 생성해주세요.`;
+  const prompt=`당신은 대한민국 최고의 ${p.name} 콘텐츠 마케팅 전문가입니다. 2026년 3월 19일 기준 최신 트렌드를 반영합니다.\n\n반드시 아래 JSON 형식으로만 응답하세요. 마크다운 백틱이나 다른 텍스트 없이 순수 JSON만 출력하세요.\n\n{"titles":["제목1","제목2","제목3","제목4","제목5"],"post":"최적화된 포스팅 본문","keywords":[${Array.from({length:kwN},(_,i)=>`"${kwL}${i+1}"`).join(',')}]}\n\n${PR[p.id]}\n\n주제: "${topic}"\n\n위 주제로 ${p.name}에 최적화된 제목 5개, 포스팅 글, ${kwL}를 JSON으로 생성해주세요.`;
   try{
-    const txt=await callGemini(apiKey, prompt);
-    const cleaned=txt.replace(/```json\s*/g,'').replace(/```\s*/g,'').trim();
-    // JSON 부분만 추출
-    const jsonMatch=cleaned.match(/\{[\s\S]*\}/);
-    if(!jsonMatch) throw new Error('JSON 응답을 파싱할 수 없습니다.\n\n응답 내용:\n'+cleaned.substring(0,200));
+    const txt=await callGemini(prompt);
+    const jsonMatch=txt.replace(/```json\s*/g,'').replace(/```\s*/g,'').trim().match(/\{[\s\S]*\}/);
+    if(!jsonMatch)throw new Error('응답을 파싱할 수 없습니다.');
     rd=JSON.parse(jsonMatch[0]);
-    if(!rd.titles||!rd.post||!rd.keywords) throw new Error('응답 형식이 올바르지 않습니다.');
+    if(!rd.titles||!rd.post||!rd.keywords)throw new Error('응답 형식이 올바르지 않습니다.');
     clearInterval(lt);la.style.display='none';setStep(3);renderRes();window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
     clearInterval(lt);la.style.display='none';
-    let errMsg=err.message||String(err);
-    // 친절한 에러 메시지
-    if(errMsg.includes('API key not valid')||errMsg.includes('API_KEY_INVALID')) errMsg='API 키가 유효하지 않습니다.\nhttps://aistudio.google.com/apikey 에서 새 키를 발급받아주세요.';
-    else if(errMsg.includes('403')||errMsg.includes('PERMISSION_DENIED')) errMsg='API 키 권한이 부족합니다.\nGoogle AI Studio에서 Generative Language API가 활성화되어 있는지 확인해주세요.';
-    else if(errMsg.includes('429')||errMsg.includes('RESOURCE_EXHAUSTED')) errMsg='API 사용량이 초과되었습니다.\n잠시 후 다시 시도해주세요. (무료: 분당 15회)';
-    else if(errMsg.includes('Failed to fetch')||errMsg.includes('NetworkError')) errMsg='네트워크 연결을 확인해주세요.\n인터넷 연결이 불안정하거나, 방화벽이 Google API를 차단하고 있을 수 있습니다.';
-    document.getElementById('errorBox').style.display='block';
-    document.getElementById('errorBox').innerHTML='⚠️ '+errMsg;
+    let msg=err.message;
+    if(msg.includes('인증')){msg='인증이 만료되었습니다. 페이지를 새로고침 후 다시 로그인해주세요.';doLogout();}
+    document.getElementById('errorBox').style.display='block';document.getElementById('errorBox').innerHTML='⚠️ '+msg;
     setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${p.color}">${IC16[p.id]} ${p.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=p.ph;document.getElementById('genBtn').style.background=p.color;
-  }finally{btn.disabled=false;btn.textContent='🚀 생성하기';}}
+  }finally{btn.disabled=false;btn.textContent='🚀 생성하기';}
+}
 
 // ── Results ──
 function renderRes(){const p=sp;document.getElementById('resultHeader').innerHTML=`<div class="rph-icon">${ICLG[p.id]}</div><div class="rph-info"><h2 style="color:${p.color}">${p.name} 최적화 콘텐츠</h2><p>주제: ${esc(ct)}</p></div><div class="rph-actions"><button class="new-btn" onclick="reGen()">🔄 다시 생성</button><button class="new-btn" onclick="goHome()">🏠 처음으로</button></div>`;renderSec();document.getElementById('bottomActions').innerHTML=`<button class="copy-all-btn" style="background:${p.color}" onclick="copyAll(this)">📦 전체 콘텐츠 복사</button>`;}
@@ -462,23 +302,21 @@ function cK(b){cp(fmtKw(rd.keywords),b);}
 function copyAll(b){const p=sp,d=rd,kwL=p.id==='instagram'?'해시태그':'키워드';let c=`[${p.name}]\n\n📌 선택된 제목: ${d.titles[sti]}\n\n--- 전체 제목 후보 ---\n`;d.titles.forEach((t,i)=>c+=`${i+1}. ${t}\n`);c+=`\n--- 본문 ---\n${d.post}\n\n--- ${kwL} ---\n${fmtKw(d.keywords)}`;cp(c,b);}
 function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
 
-// Close menus on outside click
 document.addEventListener('click',e=>{if(!e.target.closest('.user-chip'))document.getElementById('userMenu')?.classList.remove('open');});
 
 // ── Init ──
-document.addEventListener('DOMContentLoaded',()=>{
+window.addEventListener('load',()=>{
   renderGrid();loadTheme();
-  const mk=loadMyKey();if(mk)document.getElementById('myApiKeyInput').value=mk;
-  try{const saved=localStorage.getItem('guser');if(saved){loggedInUser=JSON.parse(saved);showLoggedIn();}}catch{}
-  if(!GOOGLE_CLIENT_ID)document.getElementById('googleLoginBtn').style.display='none';
+  // Wait for Google library to load, then init
+  const waitForGoogle=setInterval(()=>{
+    if(typeof google!=='undefined'&&google.accounts&&google.accounts.oauth2){
+      clearInterval(waitForGoogle);
+      initGoogleAuth();
+    }
+  },200);
+  // Timeout after 5s
+  setTimeout(()=>clearInterval(waitForGoogle),5000);
   document.getElementById('topicInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();generate();}});
-  // API 키 상태 표시
-  const activeKey=getActiveKey();
-  if(activeKey&&activeKey!=='YOUR_API_KEY_HERE'){
-    console.log('✅ API 키 로드됨: '+activeKey.substring(0,8)+'...');
-  }else{
-    console.warn('⚠️ API 키가 설정되지 않았습니다. index.html에서 DEFAULT_API_KEY를 설정해주세요.');
-  }
 });
 </script>
 </body>
