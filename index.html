@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-  /* [스타일 시트 부분은 기존과 동일하므로 생략하지 않고 전체 포함합니다] */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root, [data-theme="light"] {
     --purple: #6C63FF; --purple-dark: #4834d4;
     --naver: #03C75A; --tistory: #FF5A4A; --instagram: #E1306C; --facebook: #1877F2; --youtube: #FF0000;
@@ -35,191 +35,514 @@
     --community-bg: #1a1a28; --community-border: #2a2a3e;
     --link-card-bg: #1e1e2e; --link-card-border: #2e2e42; --link-card-hover: #282840;
   }
-  body { font-family: 'Noto Sans KR', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: background .3s, color .3s; }
+
+  body {
+    font-family: 'Noto Sans KR', 'Apple SD Gothic Neo', sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+    -webkit-font-smoothing: antialiased; transition: background .3s, color .3s;
+    -webkit-tap-highlight-color: transparent;
+  }
+
   @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes progressAnim { 0% { width: 5%; } 100% { width: 95%; } }
-  .container { max-width: 900px; margin: 0 auto; padding: 36px 32px; }
-  .top-bar { display: flex; justify-content: space-between; margin-bottom: 24px; }
-  .home-btn, .theme-toggle { padding: 9px 18px; border: 1.5px solid var(--border); border-radius: 10px; background: var(--card); cursor: pointer; font-weight: 600; color: var(--text-secondary); }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes progressAnim { 0% { width: 5%; } 50% { width: 65%; } 90% { width: 88%; } 100% { width: 95%; } }
+  @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+  @keyframes checkPop { 0% { transform: scale(0); } 60% { transform: scale(1.3); } 100% { transform: scale(1); } }
+
+  /* ══════════════════════════════════════
+     LAYOUT — PC (default, 880px max)
+     ══════════════════════════════════════ */
+  .container { max-width: 900px; margin: 0 auto; padding: 36px 32px 28px; min-height: 100vh; }
+
+  /* Top Bar */
+  .top-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; }
+  .home-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 9px 18px; border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--card); color: var(--text-secondary); font-size: 13px;
+    font-weight: 600; cursor: pointer; font-family: inherit; transition: all .2s; text-decoration: none;
+  }
+  .home-btn:hover { background: var(--card-hover); border-color: var(--purple); color: var(--purple); }
+  .home-btn svg { width: 16px; height: 16px; }
+  .theme-toggle {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 16px; border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--card); cursor: pointer; font-family: inherit;
+    font-size: 12px; font-weight: 600; color: var(--text-secondary); transition: all .2s;
+  }
+  .theme-toggle:hover { border-color: var(--purple); color: var(--purple); }
+  .theme-toggle .icon { font-size: 16px; }
+
+  /* Steps */
+  .steps-wrap { margin-bottom: 32px; }
+  .steps-indicator { display: flex; align-items: center; justify-content: center; }
+  .step-dot {
+    width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 800; transition: all .3s; background: var(--border); color: var(--text-muted);
+  }
+  .step-dot.active { background: var(--purple); color: #fff; box-shadow: 0 3px 14px rgba(108,99,255,.35); }
+  .step-dot.done { background: var(--naver); color: #fff; }
+  .step-line { width: 72px; height: 2px; background: var(--border); transition: background .3s; }
+  .step-line.active { background: var(--purple); }
+  .step-labels { display: flex; justify-content: center; gap: 60px; margin-top: 8px; }
+  .step-label { font-size: 12px; color: var(--text-muted); font-weight: 600; transition: color .3s; }
+  .step-label.active { color: var(--purple); }
+  .step-label.done { color: var(--naver); }
+
+  /* Header */
   .header { text-align: center; margin-bottom: 32px; }
-  .badge { display: inline-block; color: var(--purple); background: rgba(108,99,255,.1); padding: 7px 20px; border-radius: 20px; margin-bottom: 14px; font-weight: 800; }
-  .platform-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; }
-  .platform-card { background: var(--card); border: 2.5px solid var(--border); border-radius: var(--radius); padding: 30px 12px; cursor: pointer; text-align: center; transition: all .3s; }
-  .platform-card.selected { border-color: var(--purple); transform: translateY(-5px); }
-  .input-wrapper { display: flex; background: var(--card); border: 2.5px solid var(--border); border-radius: var(--radius); padding: 5px; margin-top: 20px; }
-  .topic-input { flex: 1; border: none; padding: 15px; background: transparent; color: var(--text); font-size: 16px; }
-  .gen-btn { padding: 14px 32px; border: none; border-radius: 12px; color: #fff; font-weight: 700; cursor: pointer; }
-  .post-box { background: var(--post-bg); padding: 28px; border-radius: var(--radius); white-space: pre-wrap; margin-top: 20px; }
-  /* [추가 스타일 생략 - 기존 코드의 스타일을 유지합니다] */
+  .badge {
+    display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 1px;
+    color: var(--purple); background: rgba(108,99,255,.1);
+    padding: 7px 20px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .header h1 { font-size: 32px; font-weight: 900; line-height: 1.3; margin-bottom: 10px; }
+  .header h1 .accent { color: var(--purple); font-size: 42px; }
+  .header p { font-size: 14px; color: var(--text-light); line-height: 1.8; }
+
+  /* Platform Cards */
+  .step-section { animation: fadeUp .5s ease; }
+  .step-title { font-size: 20px; font-weight: 800; text-align: center; margin-bottom: 24px; }
+  .platform-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px;
+  }
+  .platform-card {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 10px; padding: 30px 12px 24px;
+    background: var(--card); border: 2.5px solid var(--border);
+    border-radius: var(--radius); cursor: pointer;
+    transition: all .3s cubic-bezier(.4,0,.2,1);
+  }
+  .platform-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); }
+  .platform-card.selected { transform: translateY(-5px); }
+  .platform-card .check-circle {
+    position: absolute; top: 10px; right: 10px;
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 13px; font-weight: 900;
+    opacity: 0; transform: scale(0); transition: all .3s;
+  }
+  .platform-card.selected .check-circle { opacity: 1; animation: checkPop .4s ease forwards; }
+  .platform-card .p-icon-wrap {
+    width: 60px; height: 60px; border-radius: 18px;
+    display: flex; align-items: center; justify-content: center; transition: transform .3s;
+  }
+  .platform-card:hover .p-icon-wrap { transform: scale(1.08); }
+  .platform-card .p-icon-wrap svg { width: 32px; height: 32px; }
+  .platform-card .p-name { font-size: 13px; font-weight: 800; text-align: center; }
+  .platform-card .p-desc { font-size: 11px; color: var(--text-muted); font-weight: 500; text-align: center; }
+
+  /* Step 2 */
+  .selected-platform-badge { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px; }
+  .sp-badge {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 20px; border-radius: 24px; font-size: 14px; font-weight: 700; color: #fff;
+  }
+  .sp-badge svg { width: 16px; height: 16px; }
+  .sp-change { font-size: 13px; color: var(--purple); cursor: pointer; font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+  .input-wrapper {
+    display: flex; align-items: center; background: var(--card);
+    border: 2.5px solid var(--border); border-radius: var(--radius);
+    padding: 5px 5px 5px 18px; box-shadow: var(--shadow-sm);
+    transition: border-color .25s, box-shadow .25s;
+  }
+  .input-wrapper:focus-within { border-color: var(--purple); box-shadow: 0 4px 24px rgba(108,99,255,.12); }
+  .input-icon { font-size: 22px; flex-shrink: 0; }
+  .topic-input {
+    flex: 1; border: none; outline: none; font-size: 16px; padding: 15px 14px;
+    background: transparent; font-family: inherit; color: var(--text);
+  }
+  .topic-input::placeholder { color: var(--text-muted); }
+  .gen-btn {
+    flex-shrink: 0; padding: 14px 32px; border: none; border-radius: 12px;
+    color: #fff; font-size: 16px; font-weight: 700; cursor: pointer;
+    font-family: inherit; transition: all .2s;
+  }
+  .gen-btn:disabled { opacity: .4; cursor: not-allowed; }
+  .gen-btn:not(:disabled):hover { transform: translateY(-1px); filter: brightness(1.1); }
+  .date-tag { font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 12px; }
+
+  /* Loading */
+  .loading { text-align: center; padding: 56px 20px; animation: fadeUp .4s ease; }
+  .spinner-wrap { position: relative; width: 56px; height: 56px; margin: 0 auto 20px; }
+  .spinner-ring {
+    width: 56px; height: 56px; border: 4px solid var(--spinner-track);
+    border-radius: 50%; animation: spin .75s linear infinite; position: absolute; top: 0; left: 0;
+  }
+  .spinner-icon { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
+  .spinner-icon svg { width: 24px; height: 24px; }
+  .loading-text { font-size: 16px; font-weight: 600; color: var(--text-secondary); margin-bottom: 16px; }
+  .loading-dots { animation: pulse 1s infinite; }
+  .progress-bar { max-width: 320px; height: 4px; background: var(--progress-track); border-radius: 2px; margin: 0 auto; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 2px; }
+
+  /* Error */
+  .error-box { padding: 16px 22px; background: var(--error-bg); color: var(--error-text); border-radius: 12px; font-size: 14px; border: 1px solid var(--error-border); margin-bottom: 20px; }
+
+  /* Results */
+  .results { animation: fadeUp .5s ease; }
+  .result-platform-header {
+    display: flex; align-items: center; gap: 14px; margin-bottom: 28px;
+    padding-bottom: 18px; border-bottom: 2px solid var(--border-light);
+  }
+  .rph-icon svg { width: 36px; height: 36px; }
+  .rph-info h2 { font-size: 22px; font-weight: 900; margin-bottom: 2px; }
+  .rph-info p { font-size: 13px; color: var(--text-muted); }
+  .rph-actions { margin-left: auto; display: flex; gap: 8px; }
+  .new-btn {
+    padding: 9px 18px; border: 1.5px solid var(--border); border-radius: 10px;
+    background: var(--card); font-size: 13px; font-weight: 600; cursor: pointer;
+    font-family: inherit; color: var(--text-secondary); transition: all .2s; white-space: nowrap;
+  }
+  .new-btn:hover { background: var(--card-hover); border-color: var(--purple); color: var(--purple); }
+  .section { margin-bottom: 32px; }
+  .section-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+  .section-title { font-size: 17px; font-weight: 800; margin: 0; }
+  .titles-list { display: flex; flex-direction: column; gap: 10px; }
+  .title-card {
+    display: flex; align-items: center; gap: 14px; padding: 16px 18px;
+    background: var(--card); border-radius: 12px; border: 1px solid var(--border-light);
+    border-left: 4px solid var(--border); cursor: pointer; transition: all .2s;
+  }
+  .title-card:hover { box-shadow: 0 2px 14px rgba(0,0,0,.06); }
+  .title-num {
+    flex-shrink: 0; width: 30px; height: 30px; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-size: 13px; font-weight: 800;
+  }
+  .title-text { font-size: 15px; font-weight: 600; flex: 1; line-height: 1.55; }
+  .sel-badge { font-size: 11px; color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: 700; flex-shrink: 0; }
+  .post-box { background: var(--post-bg); border: 1px solid var(--border-light); border-radius: var(--radius); padding: 28px; max-height: 560px; overflow-y: auto; }
+  .post-box::-webkit-scrollbar { width: 6px; }
+  .post-box::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .post-text { margin: 0; font-size: 15px; line-height: 1.95; white-space: pre-wrap; word-break: break-word; font-family: 'Noto Sans KR', sans-serif; color: var(--text-secondary); }
+  .kw-wrap { display: flex; flex-wrap: wrap; gap: 10px; }
+  .kw { display: inline-block; padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; border: 1px solid transparent; }
+  .copy-btn { padding: 8px 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--card); font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; color: var(--text-secondary); transition: all .2s; white-space: nowrap; }
+  .copy-btn:hover { background: var(--card-hover); }
+  .copy-btn.copied { background: var(--copied-bg); border-color: var(--copied-border); color: var(--naver); }
+  .bottom-actions { display: flex; gap: 12px; justify-content: center; padding-top: 20px; border-top: 1px solid var(--border-light); margin-top: 24px; }
+  .copy-all-btn { padding: 14px 36px; border: none; border-radius: 12px; color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; font-family: inherit; transition: all .2s; }
+  .copy-all-btn:hover { opacity: .9; transform: translateY(-1px); }
+
+  /* Community */
+  .community { margin-top: 52px; padding: 36px 32px; border-radius: var(--radius); background: var(--community-bg); border: 1px solid var(--community-border); text-align: center; }
+  .community-title { font-size: 17px; font-weight: 800; margin-bottom: 6px; }
+  .community-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 22px; }
+  .community-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+  .community-link {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 10px 16px; border-radius: 12px;
+    background: var(--link-card-bg); border: 1.5px solid var(--link-card-border);
+    text-decoration: none; color: var(--text-secondary);
+    font-size: 13px; font-weight: 600; transition: all .2s; font-family: inherit;
+  }
+  .community-link:hover { border-color: var(--purple); color: var(--purple); background: var(--link-card-hover); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+  .community-link .cl-icon { width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; border-radius: 6px; flex-shrink: 0; }
+
+  .footer { text-align: center; margin-top: 28px; padding: 22px 0; font-size: 12px; color: var(--text-muted); border-top: 1px solid var(--border-light); }
+
+  /* ══════════════════════════════════════
+     TABLET (max-width: 768px)
+     ══════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .container { padding: 24px 20px 20px; }
+    .header h1 { font-size: 26px; }
+    .header h1 .accent { font-size: 34px; }
+    .header p { font-size: 13px; }
+    .platform-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .platform-card { padding: 24px 10px 20px; }
+    .platform-card .p-icon-wrap { width: 52px; height: 52px; border-radius: 15px; }
+    .platform-card .p-icon-wrap svg { width: 28px; height: 28px; }
+    .step-line { width: 48px; }
+    .step-labels { gap: 38px; }
+    .result-platform-header { flex-wrap: wrap; }
+    .rph-actions { margin-left: 0; margin-top: 8px; width: 100%; justify-content: flex-start; }
+  }
+
+  /* ══════════════════════════════════════
+     MOBILE PHONE (max-width: 480px)
+     ══════════════════════════════════════ */
+  @media (max-width: 480px) {
+    .container { padding: 16px 14px 16px; }
+
+    /* Top bar */
+    .home-btn { padding: 8px 12px; font-size: 12px; gap: 4px; border-radius: 8px; }
+    .home-btn svg { width: 14px; height: 14px; }
+    .theme-toggle { padding: 7px 10px; font-size: 11px; gap: 5px; border-radius: 8px; }
+    .theme-toggle .icon { font-size: 14px; }
+
+    /* Steps */
+    .steps-wrap { margin-bottom: 20px; }
+    .step-dot { width: 30px; height: 30px; font-size: 12px; }
+    .step-line { width: 28px; height: 2px; }
+    .step-labels { gap: 18px; margin-top: 5px; }
+    .step-label { font-size: 10px; }
+
+    /* Header */
+    .header { margin-bottom: 20px; }
+    .badge { font-size: 10px; padding: 5px 14px; margin-bottom: 10px; letter-spacing: .5px; }
+    .header h1 { font-size: 22px; }
+    .header h1 .accent { font-size: 28px; }
+    .header p { font-size: 12px; line-height: 1.7; }
+    .header p br { display: none; }
+
+    /* Platform Grid — 2 columns + centered last */
+    .step-title { font-size: 16px; margin-bottom: 16px; }
+    .platform-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .platform-grid .platform-card:nth-child(5) { grid-column: 1 / -1; max-width: 52%; margin: 0 auto; }
+    .platform-card { padding: 22px 10px 18px; gap: 7px; border-width: 2px; border-radius: 14px; }
+    .platform-card .check-circle { width: 20px; height: 20px; font-size: 11px; top: 7px; right: 7px; }
+    .platform-card .p-icon-wrap { width: 48px; height: 48px; border-radius: 14px; }
+    .platform-card .p-icon-wrap svg { width: 26px; height: 26px; }
+    .platform-card .p-name { font-size: 12px; }
+    .platform-card .p-desc { font-size: 9.5px; }
+
+    /* Step 2 — Input */
+    .selected-platform-badge { gap: 8px; margin-bottom: 14px; }
+    .sp-badge { padding: 7px 14px; font-size: 12px; border-radius: 20px; }
+    .sp-badge svg { width: 14px; height: 14px; }
+    .sp-change { font-size: 11px; }
+    .input-wrapper { border-radius: 12px; padding: 3px 3px 3px 12px; border-width: 2px; }
+    .input-icon { font-size: 18px; }
+    .topic-input { font-size: 14px; padding: 12px 10px; }
+    .gen-btn { padding: 12px 18px; font-size: 14px; border-radius: 10px; }
+    .date-tag { font-size: 10.5px; margin-top: 8px; }
+
+    /* Loading */
+    .loading { padding: 36px 16px; }
+    .spinner-wrap { width: 46px; height: 46px; margin-bottom: 14px; }
+    .spinner-ring { width: 46px; height: 46px; border-width: 3px; }
+    .spinner-icon svg { width: 20px; height: 20px; }
+    .loading-text { font-size: 13px; margin-bottom: 12px; }
+    .progress-bar { max-width: 220px; height: 3px; }
+
+    /* Error */
+    .error-box { padding: 12px 14px; font-size: 12.5px; border-radius: 10px; }
+
+    /* Results */
+    .result-platform-header { flex-direction: column; text-align: center; gap: 8px; padding-bottom: 14px; margin-bottom: 20px; }
+    .rph-icon svg { width: 28px; height: 28px; }
+    .rph-info h2 { font-size: 18px; }
+    .rph-info p { font-size: 11.5px; }
+    .rph-actions { margin-left: 0; justify-content: center; gap: 6px; width: 100%; }
+    .new-btn { padding: 8px 14px; font-size: 12px; border-radius: 8px; flex: 1; text-align: center; }
+
+    .section { margin-bottom: 22px; }
+    .section-head { margin-bottom: 10px; }
+    .section-title { font-size: 14px; }
+    .titles-list { gap: 7px; }
+    .title-card { padding: 12px 12px; gap: 10px; border-radius: 10px; border-left-width: 3px; }
+    .title-num { width: 24px; height: 24px; border-radius: 6px; font-size: 11px; }
+    .title-text { font-size: 13px; line-height: 1.5; }
+    .sel-badge { font-size: 9px; padding: 3px 8px; }
+
+    .post-box { padding: 16px; border-radius: 12px; max-height: 400px; }
+    .post-text { font-size: 13px; line-height: 1.85; }
+
+    .kw-wrap { gap: 6px; }
+    .kw { padding: 6px 11px; font-size: 11.5px; border-radius: 16px; }
+
+    .copy-btn { padding: 6px 12px; font-size: 11.5px; border-radius: 8px; }
+    .bottom-actions { padding-top: 14px; margin-top: 16px; gap: 8px; }
+    .copy-all-btn { padding: 12px 24px; font-size: 14px; border-radius: 10px; width: 100%; }
+
+    /* Community */
+    .community { margin-top: 32px; padding: 24px 16px; border-radius: 14px; }
+    .community-title { font-size: 14px; }
+    .community-sub { font-size: 11px; margin-bottom: 16px; }
+    .community-links { gap: 7px; }
+    .community-link { padding: 8px 12px; font-size: 11px; border-radius: 10px; gap: 5px; }
+    .community-link .cl-icon { width: 20px; height: 20px; border-radius: 5px; }
+    .community-link .cl-icon svg { width: 12px; height: 12px; }
+
+    /* Footer */
+    .footer { margin-top: 20px; padding: 16px 0; font-size: 10.5px; }
+  }
+
+  /* ══════════════════════════════════════
+     WIDE DESKTOP (min-width: 1200px)
+     ══════════════════════════════════════ */
+  @media (min-width: 1200px) {
+    .container { max-width: 960px; padding: 48px 40px 36px; }
+    .header h1 { font-size: 36px; }
+    .header h1 .accent { font-size: 48px; }
+    .header p { font-size: 15px; }
+    .platform-card { padding: 34px 16px 28px; }
+    .platform-card .p-icon-wrap { width: 68px; height: 68px; border-radius: 20px; }
+    .platform-card .p-icon-wrap svg { width: 36px; height: 36px; }
+    .platform-card .p-name { font-size: 14px; }
+    .platform-card .p-desc { font-size: 12px; }
+  }
 </style>
 </head>
 <body>
 <div class="container">
+
   <div class="top-bar">
-    <button class="home-btn" onclick="goHome()">🏠 홈</button>
-    <button class="theme-toggle" onclick="toggleTheme()">🌙 다크모드</button>
+    <button class="home-btn" onclick="goHome()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg>
+      홈
+    </button>
+    <button class="theme-toggle" onclick="toggleTheme()">
+      <span class="icon" id="themeIcon">🌙</span>
+      <span id="themeLabel">다크모드</span>
+    </button>
   </div>
 
   <div class="header">
     <div class="badge">유쌤AI콘텐츠마케팅최적화도구</div>
-    <h1><span style="color:var(--purple); font-size:42px;">5</span>대 플랫폼 콘텐츠 최적화 생성기</h1>
-    <p>주제를 입력하면 맞춤형 콘텐츠를 생성합니다.</p>
+    <h1><span class="accent">5</span>대 플랫폼<br>콘텐츠 최적화 생성기</h1>
+    <p>플랫폼을 선택하고 주제를 입력하면<br>맞춤 제목 · 포스팅 · 키워드를 자동 생성합니다</p>
+  </div>
+
+  <div class="steps-wrap">
+    <div class="steps-indicator">
+      <div class="step-dot active" id="dot1">1</div><div class="step-line" id="line1"></div>
+      <div class="step-dot" id="dot2">2</div><div class="step-line" id="line2"></div>
+      <div class="step-dot" id="dot3">3</div>
+    </div>
+    <div class="step-labels">
+      <span class="step-label active" id="label1">플랫폼 선택</span>
+      <span class="step-label" id="label2">주제 입력</span>
+      <span class="step-label" id="label3">결과 확인</span>
+    </div>
   </div>
 
   <div id="step1" class="step-section">
+    <div class="step-title">👆 포스팅할 플랫폼을 선택하세요</div>
     <div class="platform-grid" id="platformGrid"></div>
   </div>
 
   <div id="step2" class="step-section" style="display:none;">
-    <div id="selectedBadge" style="text-align:center; margin-bottom:20px;"></div>
+    <div class="selected-platform-badge" id="selectedBadge"></div>
     <div class="input-wrapper">
-      <input type="text" id="topicInput" class="topic-input" placeholder="주제를 입력하세요">
+      <span class="input-icon">✏️</span>
+      <input type="text" id="topicInput" class="topic-input" placeholder="">
       <button class="gen-btn" id="genBtn" onclick="generate()">🚀 생성하기</button>
     </div>
+    <p class="date-tag">📅 2026년 3월 19일 기준 최적화</p>
   </div>
 
-  <div id="loadingArea" class="loading" style="display:none; text-align:center; padding:50px;">
-    <p id="loadingMsg">AI가 콘텐츠를 분석하고 있습니다...</p>
-    <div style="width:100%; height:4px; background:#eee; margin-top:20px;">
-        <div id="progressFill" style="height:100%; width:0%; transition: width 20s;"></div>
+  <div id="loadingArea" class="loading" style="display:none;">
+    <div class="spinner-wrap"><div class="spinner-ring" id="spinnerRing"></div><div class="spinner-icon" id="spinnerIcon"></div></div>
+    <p class="loading-text" id="loadingMsg"></p>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <div id="errorBox" class="error-box" style="display:none;"></div>
+
+  <div id="step3" class="results" style="display:none;">
+    <div class="result-platform-header" id="resultHeader"></div>
+    <div id="contentArea"></div>
+    <div class="bottom-actions" id="bottomActions"></div>
+  </div>
+
+  <div class="community">
+    <div class="community-title">친절한유성쌤 유쌤클래스 커뮤니티</div>
+    <div class="community-sub">유쌤과 함께 AI 콘텐츠 마케팅을 배워보세요!</div>
+    <div class="community-links">
+      <a class="community-link" href="https://www.yussamclass.com/" target="_blank"><span class="cl-icon" style="background:#6C63FF22;color:#6C63FF;">🏠</span>홈페이지</a>
+      <a class="community-link" href="https://blog.naver.com/mindlemedia" target="_blank"><span class="cl-icon" style="background:#03C75A18;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#03C75A"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg></span>블로그</a>
+      <a class="community-link" href="https://www.youtube.com/c/kyseong3" target="_blank"><span class="cl-icon" style="background:#FF000015;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.9 31.9 0 000 12a31.9 31.9 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.9 31.9 0 0024 12a31.9 31.9 0 00-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg></span>유튜브</a>
+      <a class="community-link" href="https://www.instagram.com/yussam_class" target="_blank"><span class="cl-icon" style="background:#E1306C15;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4 6.2 6.2 0 000-12.4zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg></span>인스타그램</a>
+      <a class="community-link" href="https://open.kakao.com/o/g8m4i9ve" target="_blank"><span class="cl-icon" style="background:#FEE50020;">💬</span>오픈톡방</a>
+      <a class="community-link" href="https://www.facebook.com/dandelionmedia1004" target="_blank"><span class="cl-icon" style="background:#1877F215;"><svg width="13" height="13" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg></span>페이스북</a>
+      <a class="community-link" href="https://www.threads.com/@yussam_class" target="_blank"><span class="cl-icon" style="background:#00000012;color:var(--text);"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.789.763c-1.07-3.872-3.6-5.476-7.533-5.504-2.626.017-4.576.87-5.795 2.535-1.078 1.47-1.674 3.6-1.699 6.633.025 3.037.622 5.168 1.7 6.636 1.22 1.665 3.168 2.516 5.793 2.534 2.06-.018 3.6-.492 4.71-1.448.976-.842 1.593-2.06 1.593-3.725 0-1.077-.32-1.917-.952-2.497-.562-.516-1.354-.823-2.348-.914a7.5 7.5 0 01-.108 1.6c-.235 1.117-.736 2.005-1.449 2.568-.654.516-1.488.78-2.478.78-1.175 0-2.139-.408-2.866-1.213-.7-.776-1.055-1.824-1.055-3.117 0-1.752.545-3.177 1.623-4.237 1.003-.986 2.342-1.487 3.98-1.487.87 0 1.668.15 2.373.448l-.12 2.67a4.75 4.75 0 00-2.14-.477c-.987 0-1.758.322-2.293.957-.486.577-.733 1.387-.733 2.407 0 .751.172 1.333.511 1.73.31.363.75.547 1.306.547.68 0 1.2-.262 1.547-.78.303-.452.482-1.094.533-1.907.025-.393.016-.8-.025-1.213l.067-.474c1.605.103 2.857.57 3.72 1.39.962.916 1.45 2.2 1.45 3.82 0 2.351-.88 4.186-2.617 5.453C17.555 23.268 15.267 23.98 12.186 24z"/></svg></span>쓰레드</a>
     </div>
   </div>
 
-  <div id="errorBox" class="error-box" style="display:none; color:red; padding:20px; text-align:center;"></div>
-
-  <div id="step3" class="results" style="display:none;">
-    <div id="resultHeader"></div>
-    <div id="contentArea"></div>
-    <div class="bottom-actions" id="bottomActions" style="text-align:center; margin-top:30px;"></div>
+  <div class="footer">
+    <span>유쌤클래스 · AI콘텐츠마케팅연구소</span>
+    <span style="margin:0 6px;">·</span>
+    <span>Powered by 친절한유성쌤</span>
   </div>
 </div>
 
 <script>
-/** * ⚠️ 필독: 여기에 복사한 Gemini API 키를 넣으세요!
- */
-const GEMINI_API_KEY = "AIzaSyBWETCP_FrG-2QtDXlJEarXXJUiQEfFC5w"; 
+const ICONS={naver:`<svg viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>`,tistory:`<svg viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>`,instagram:`<svg viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>`,facebook:`<svg viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>`,youtube:`<svg viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.9 31.9 0 000 12a31.9 31.9 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.9 31.9 0 0024 12a31.9 31.9 0 00-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>`};
+const IC16={naver:`<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>`,tistory:`<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>`,instagram:`<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2-.1-1.3-.1-1.6-.1-4.8s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4 1.3-.1 1.6-.1 4.8-.1zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>`,facebook:`<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>`,youtube:`<svg width="16" height="16" viewBox="0 0 24 24" fill="#fff"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.9 31.9 0 000 12a31.9 31.9 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.9 31.9 0 0024 12a31.9 31.9 0 00-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>`};
+const ICLG={naver:`<svg width="36" height="36" viewBox="0 0 24 24" fill="#03C75A"><path d="M16.27 10.58L7.72 4.2A.6.6 0 007 4.68v6.1l5.28 3.22L7 17.22v6.1a.6.6 0 00.95.48l8.55-6.38a3.15 3.15 0 00-.23-5.84z"/></svg>`,tistory:`<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF5A4A"><circle cx="12" cy="5.5" r="3"/><circle cx="4.5" cy="13" r="3"/><circle cx="19.5" cy="13" r="3"/><circle cx="12" cy="20.5" r="3"/><circle cx="12" cy="13" r="3"/></svg>`,instagram:`<svg width="36" height="36" viewBox="0 0 24 24" fill="#E1306C"><path d="M12 2.2c3.2 0 3.6 0 4.8.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1.1.4 2.2.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.8c-.1 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1.1.4-2.2.4-1.3.1-1.6.1-4.8.1s-3.6 0-4.8-.1c-1.2-.1-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1.1-.4-2.2C2.3 15.6 2.2 15.3 2.2 12s0-3.6.1-4.8c.1-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1.1-.4 2.2-.4C8.4 2.2 8.7 2.2 12 2.2zM12 0C8.7 0 8.3 0 7.1.1 5.8.1 4.9.3 4.1.6c-.8.3-1.5.7-2.2 1.4C1.3 2.6.9 3.3.6 4.1.3 4.9.1 5.8.1 7.1 0 8.3 0 8.7 0 12s0 3.7.1 4.9c.1 1.3.2 2.2.5 2.9.3.8.7 1.5 1.4 2.2.7.7 1.4 1.1 2.2 1.4.8.3 1.6.5 2.9.5C8.3 24 8.7 24 12 24s3.7 0 4.9-.1c1.3-.1 2.2-.2 2.9-.5.8-.3 1.5-.7 2.2-1.4.7-.7 1.1-1.4 1.4-2.2.3-.8.5-1.6.5-2.9.1-1.2.1-1.6.1-4.9s0-3.7-.1-4.9c-.1-1.3-.2-2.2-.5-2.9-.3-.8-.7-1.5-1.4-2.2C21.4 1.3 20.7.9 19.9.6 19.1.3 18.2.1 16.9.1 15.7 0 15.3 0 12 0zm0 5.8a6.2 6.2 0 100 12.4A6.2 6.2 0 0012 5.8zM12 16a4 4 0 110-8 4 4 0 010 8zm6.4-11.8a1.4 1.4 0 100 2.8 1.4 1.4 0 000-2.8z"/></svg>`,facebook:`<svg width="36" height="36" viewBox="0 0 24 24" fill="#1877F2"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.02 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.09 24 18.09 24 12.07z"/></svg>`,youtube:`<svg width="36" height="36" viewBox="0 0 24 24" fill="#FF0000"><path d="M23.5 6.2a3 3 0 00-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 00.5 6.2 31.9 31.9 0 000 12a31.9 31.9 0 00.5 5.8 3 3 0 002.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 002.1-2.1A31.9 31.9 0 0024 12a31.9 31.9 0 00-.5-5.8zM9.5 15.6V8.4l6.3 3.6-6.3 3.6z"/></svg>`};
 
-// 설정 데이터
-const ICONS = { naver: 'N', tistory: 'T', instagram: 'I', facebook: 'F', youtube: 'Y' };
-const P = [
-  {id:"naver",name:"네이버 블로그",color:"#03C75A",desc:"검색 최적화",ph:"예: AI 활용 마케팅"},
-  {id:"tistory",name:"티스토리",color:"#FF5A4A",desc:"구글 SEO",ph:"예: IT 트렌드 가이드"},
-  {id:"instagram",name:"인스타그램",color:"#E1306C",desc:"해시태그 전략",ph:"예: 카페 브이로그"},
-  {id:"facebook",name:"페이스북",color:"#1877F2",desc:"커뮤니티 공유",ph:"예: 유용한 꿀팁"},
-  {id:"youtube",name:"유튜브",color:"#FF0000",desc:"영상 SEO",ph:"예: 제품 리뷰"}
+const P=[
+  {id:"naver",name:"네이버 블로그",color:"#03C75A",desc:"검색 최적화 · SEO",ph:"예: AI 활용 블로그 마케팅 전략"},
+  {id:"tistory",name:"티스토리",color:"#FF5A4A",desc:"구글 SEO · 롱폼",ph:"예: 챗GPT 프롬프트 작성법 가이드"},
+  {id:"instagram",name:"인스타그램",color:"#E1306C",desc:"해시태그 · 릴스",ph:"예: 요즘 핫한 카페 투어 브이로그"},
+  {id:"facebook",name:"페이스북",color:"#1877F2",desc:"공유 · 커뮤니티",ph:"예: 직장인을 위한 생산성 꿀팁"},
+  {id:"youtube",name:"유튜브",color:"#FF0000",desc:"영상 SEO · 설명란",ph:"예: AI 영상 편집 도구 비교 리뷰"},
 ];
-const PR = {
-  naver: "네이버 블로그 형식: 친근한 말투, 상세한 설명, 소제목 활용.",
-  tistory: "티스토리 형식: 전문적인 톤, H2/H3 구조화, 구글 검색 최적화.",
-  instagram: "인스타그램 형식: 감성적인 문구, 이모지 활용, 핵심 해시태그 포함.",
-  facebook: "페이스북 형식: 공유를 유도하는 질문형, 간결한 요약.",
-  youtube: "유튜브 형식: 시청자의 클릭을 유도하는 제목, 상세 설명란 구성."
-};
+const PR={naver:`[네이버 블로그] 제목: 핵심 키워드 앞배치, 30자 이내. 본문: 2000자 이상, 소제목, ~입니다체, 이모지, 줄바꿈. 키워드 10개.`,tistory:`[티스토리] 제목: 구글SEO, 50자 이내. 본문: 2500자 이상, H2/H3 구조, 롱폼. 키워드 10개.`,instagram:`[인스타그램] 제목: 짧은 후킹문구+이모지. 캡션: 2200자 이내, 줄바꿈, 스토리텔링, CTA, 이모지. 해시태그 15개(#포함, 대+중+소).`,facebook:`[페이스북] 제목: 공유유도 감성/호기심. 본문: 공감 스토리텔링, 질문CTA, 공유유도. 키워드 10개.`,youtube:`[유튜브] 제목: CTR높은 60자이내, 숫자/감정. 설명란: 타임스탬프, 구독CTA, 링크안내. 태그 10개.`};
+const LM={naver:["네이버 검색 트렌드 분석 중","키워드 경쟁력 분석 중","SEO 제목 생성 중","블로그 본문 작성 중","키워드 추출 중","최종 검수 중"],tistory:["구글 검색 트렌드 분석 중","SEO 구조 설계 중","롱폼 제목 생성 중","H2/H3 본문 작성 중","SEO 키워드 추출 중","최종 검수 중"],instagram:["인스타 트렌드 분석 중","해시태그 전략 수립 중","후킹 제목 생성 중","캡션 작성 중","해시태그 생성 중","최종 검수 중"],facebook:["페이스북 알고리즘 분석 중","공유 패턴 분석 중","바이럴 제목 생성 중","스토리텔링 본문 작성 중","키워드 추출 중","최종 검수 중"],youtube:["유튜브 검색 분석 중","CTR 전략 수립 중","클릭률 높은 제목 생성 중","설명란 작성 중","태그 생성 중","최종 검수 중"]};
 
-let sp = null, rd = null, sti = 0, ct = '';
+let sp=null,rd=null,sti=0,ct='',lt=null;
 
-// 초기화 및 테마
-function loadTheme() { renderGrid(); }
-function toggleTheme() { document.body.style.filter = document.body.style.filter === 'invert(1)' ? 'none' : 'invert(1)'; }
+function toggleTheme(){const h=document.documentElement,d=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',d?'light':'dark');document.getElementById('themeIcon').textContent=d?'🌙':'☀️';document.getElementById('themeLabel').textContent=d?'다크모드':'라이트모드';try{localStorage.setItem('theme',d?'light':'dark');}catch{}}
+function loadTheme(){try{if(localStorage.getItem('theme')==='dark'){document.documentElement.setAttribute('data-theme','dark');document.getElementById('themeIcon').textContent='☀️';document.getElementById('themeLabel').textContent='라이트모드';}}catch{}}
 
-function renderGrid() {
-  document.getElementById('platformGrid').innerHTML = P.map(p => `
-    <div class="platform-card" id="pc-${p.id}" onclick="pick('${p.id}')">
-      <div style="font-size:30px; margin-bottom:10px;">${ICONS[p.id]}</div>
-      <div style="font-weight:800">${p.name}</div>
-      <div style="font-size:12px; color:#999">${p.desc}</div>
-    </div>
-  `).join('');
-}
+/*
+ ┌─────────────────────────────────────────────────────────┐
+ │  ★ Google Gemini API Key 설정                           │
+ │  아래 YOUR_API_KEY_HERE 부분을 실제 API 키로 교체하세요  │
+ │  발급: https://aistudio.google.com/apikey               │
+ └─────────────────────────────────────────────────────────┘
+*/
+const GEMINI_API_KEY = 'YOUR_API_KEY_HERE';
 
-function pick(id) {
-  sp = P.find(p => p.id === id);
-  document.getElementById('step1').style.display = 'none';
-  document.getElementById('step2').style.display = 'block';
-  document.getElementById('topicInput').placeholder = sp.ph;
-  document.getElementById('genBtn').style.background = sp.color;
-  document.getElementById('selectedBadge').innerHTML = `<b style="color:${sp.color}">${sp.name} 선택됨</b>`;
-}
+function setStep(n){for(let i=1;i<=3;i++){const d=document.getElementById('dot'+i),l=document.getElementById('label'+i);d.classList.remove('active','done');l.classList.remove('active','done');if(i<n){d.classList.add('done');l.classList.add('done');d.textContent='✓';}else if(i===n){d.classList.add('active');l.classList.add('active');d.textContent=i;}else d.textContent=i;}for(let i=1;i<=2;i++)document.getElementById('line'+i).classList.toggle('active',i<n);document.getElementById('step1').style.display=n===1?'block':'none';document.getElementById('step2').style.display=n===2?'block':'none';document.getElementById('step3').style.display=n===3?'block':'none';document.getElementById('loadingArea').style.display='none';document.getElementById('errorBox').style.display='none';}
 
-function goHome() { location.reload(); }
+function renderGrid(){document.getElementById('platformGrid').innerHTML=P.map(p=>`<div class="platform-card" id="pc-${p.id}" onclick="pick('${p.id}')"><div class="check-circle" style="background:${p.color}">✓</div><div class="p-icon-wrap" style="background:${p.color}">${ICONS[p.id]}</div><div class="p-name">${p.name}</div><div class="p-desc">${p.desc}</div></div>`).join('');}
 
-/** * 핵심: Gemini API 호출 함수
- */
-async function generate() {
-  const topic = document.getElementById('topicInput').value.trim();
-  if (!topic) { alert('주제를 입력하세요!'); return; }
-  
-  ct = topic;
-  const btn = document.getElementById('genBtn');
-  btn.disabled = true;
-  
-  document.getElementById('step2').style.display = 'none';
-  document.getElementById('loadingArea').style.display = 'block';
-  document.getElementById('progressFill').style.width = '90%';
-  document.getElementById('progressFill').style.background = sp.color;
+function pick(id){sp=P.find(p=>p.id===id);document.querySelectorAll('.platform-card').forEach(el=>{el.classList.remove('selected');el.style.borderColor='var(--border)';el.style.boxShadow='none';});const c=document.getElementById('pc-'+id);c.classList.add('selected');c.style.borderColor=sp.color;c.style.boxShadow=`0 8px 28px ${sp.color}25`;setTimeout(()=>{setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${sp.color}">${IC16[sp.id]} ${sp.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=sp.ph;document.getElementById('genBtn').style.background=sp.color;setTimeout(()=>document.getElementById('topicInput').focus(),100);},300);}
 
-  // 제미나이에게 줄 프롬프트 설정
-  const kwL = sp.id === 'instagram' ? '해시태그' : '키워드';
-  const promptText = `
-    당신은 대한민국 최고의 ${sp.name} 마케팅 전문가입니다. 2026년 최신 트렌드를 반영하세요.
-    주제: "${topic}"
-    
-    요구사항:
-    1. 추천 제목 5개를 만들어주세요.
-    2. ${sp.name} 성격에 맞는 최적화된 포스팅 본문을 작성하세요.
-    3. 관련 ${kwL} 10개를 만들어주세요.
-    
-    반드시 다음 JSON 형식으로만 답변하세요(다른 설명은 하지 마세요):
-    {
-      "titles": ["제목1", "제목2", "제목3", "제목4", "제목5"],
-      "post": "본문 내용...",
-      "keywords": ["키워드1", "키워드2", ...]
-    }
-  `;
+function goHome(){sp=null;rd=null;sti=0;ct='';document.getElementById('topicInput').value='';setStep(1);renderGrid();window.scrollTo({top:0,behavior:'smooth'});}
 
-  try {
-    // 2026년 기준 가장 빠른 Gemini 1.5 Flash 모델 호출
-    const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GEMINI_API_KEY}`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: promptText }] }]
-      })
-    });
+async function generate(){const topic=document.getElementById('topicInput').value.trim();if(!topic){alert('주제를 입력해주세요!');return;}
+const apiKey=GEMINI_API_KEY;if(!apiKey||apiKey==='YOUR_API_KEY_HERE'){alert('⚠️ API 키가 설정되지 않았습니다.\nindex.html 파일을 열어 GEMINI_API_KEY 값을 입력해주세요.');return;}
+ct=topic;const p=sp,btn=document.getElementById('genBtn');btn.disabled=true;btn.textContent='생성 중...';document.getElementById('step2').style.display='none';const la=document.getElementById('loadingArea');la.style.display='block';document.getElementById('spinnerRing').style.borderTopColor=p.color;document.getElementById('spinnerIcon').innerHTML=ICLG[p.id].replace(/width="36"/g,'width="24"').replace(/height="36"/g,'height="24"');const pf=document.getElementById('progressFill');pf.style.background=`linear-gradient(90deg,${p.color},${p.color}aa)`;pf.style.animation='none';void pf.offsetHeight;pf.style.animation='progressAnim 25s ease-out forwards';const msgs=LM[p.id];let mi=0;document.getElementById('loadingMsg').innerHTML='🔍 '+msgs[0]+'...<span class="loading-dots">...</span>';lt=setInterval(()=>{mi=(mi+1)%msgs.length;document.getElementById('loadingMsg').innerHTML='✨ '+msgs[mi]+'...<span class="loading-dots">...</span>';},3000);rd=null;sti=0;
+const kwL=p.id==='instagram'?'해시태그':'키워드',kwN=p.id==='instagram'?15:10;
+const prompt=`당신은 대한민국 최고의 ${p.name} 콘텐츠 마케팅 전문가입니다. 2026년 3월 19일 기준 최신 트렌드를 반영합니다.
 
-    const data = await response.json();
-    
-    if (data.error) throw new Error(data.error.message);
+반드시 아래 JSON 형식으로만 응답하세요. 마크다운 백틱이나 다른 텍스트 없이 순수 JSON만 출력하세요.
 
-    // AI 응답에서 텍스트 추출 (JSON 외의 마크다운 제거)
-    let rawText = data.candidates[0].content.parts[0].text;
-    let cleanJson = rawText.replace(/```json|```/g, '').trim();
-    rd = JSON.parse(cleanJson);
+{"titles":["제목1","제목2","제목3","제목4","제목5"],"post":"최적화된 포스팅 본문","keywords":[${Array.from({length:kwN},(_,i)=>`"${kwL}${i+1}"`).join(',')}]}
 
-    showResults();
-  } catch (err) {
-    document.getElementById('loadingArea').style.display = 'none';
-    document.getElementById('errorBox').style.display = 'block';
-    document.getElementById('errorBox').innerText = "오류 발생: " + err.message + "\nAPI 키가 올바른지 확인해주세요.";
-    btn.disabled = false;
-  }
-}
+${PR[p.id]}
 
-function showResults() {
-  document.getElementById('loadingArea').style.display = 'none';
-  document.getElementById('step3').style.display = 'block';
-  
-  let h = `<h2 style="color:${sp.color}; text-align:center;">${sp.name} 추천 결과</h2>`;
-  
-  h += `<div class="post-box"><b>📌 추천 제목:</b>\n${rd.titles.map((t,i) => (i+1)+'. '+t).join('\n')}</div>`;
-  h += `<div class="post-box"><b>📝 본문 내용:</b>\n${rd.post}</div>`;
-  h += `<div class="post-box"><b>🏷️ 키워드/해시태그:</b>\n${rd.keywords.join(' ')}</div>`;
-  
-  document.getElementById('contentArea').innerHTML = h;
-  document.getElementById('bottomActions').innerHTML = `<button class="gen-btn" style="background:#666" onclick="goHome()">🏠 처음으로</button>`;
-}
+주제: "${topic}"
 
-window.onload = loadTheme;
+위 주제로 ${p.name}에 최적화된 제목 5개, 포스팅 글, ${kwL}를 JSON으로 생성해주세요.`;
+try{
+const resp=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,{
+  method:'POST',
+  headers:{'Content-Type':'application/json'},
+  body:JSON.stringify({
+    contents:[{parts:[{text:prompt}]}],
+    generationConfig:{temperature:0.9,maxOutputTokens:8192,responseMimeType:"application/json"}
+  })
+});
+const data=await resp.json();
+if(data.error)throw new Error(data.error.message||JSON.stringify(data.error));
+if(!data.candidates||!data.candidates[0])throw new Error('응답을 받지 못했습니다. API 키를 확인해주세요.');
+const txt=data.candidates[0].content.parts.map(p=>p.text||'').join('');
+rd=JSON.parse(txt.replace(/```json|```/g,'').trim());
+clearInterval(lt);la.style.display='none';setStep(3);renderRes();window.scrollTo({top:0,behavior:'smooth'});
+}catch(err){clearInterval(lt);la.style.display='none';document.getElementById('errorBox').style.display='block';document.getElementById('errorBox').innerHTML='⚠️ '+err.message;setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${p.color}">${IC16[p.id]} ${p.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=p.ph;document.getElementById('genBtn').style.background=p.color;}finally{btn.disabled=false;btn.textContent='🚀 생성하기';}}
+
+function renderRes(){const p=sp;document.getElementById('resultHeader').innerHTML=`<div class="rph-icon">${ICLG[p.id]}</div><div class="rph-info"><h2 style="color:${p.color}">${p.name} 최적화 콘텐츠</h2><p>주제: ${esc(ct)}</p></div><div class="rph-actions"><button class="new-btn" onclick="reGen()">🔄 다시 생성</button><button class="new-btn" onclick="goHome()">🏠 처음으로</button></div>`;renderSec();document.getElementById('bottomActions').innerHTML=`<button class="copy-all-btn" style="background:${p.color}" onclick="copyAll(this)">📦 전체 콘텐츠 복사</button>`;}
+function renderSec(){const p=sp,d=rd,si=sti,kwL=p.id==='instagram'?'해시태그':'키워드';let h='';h+=`<div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">📌 추천 제목 TOP 5</h2><button class="copy-btn" onclick="cT(this)">📋 선택 제목 복사</button></div><div class="titles-list">`;d.titles.forEach((t,i)=>{const s=i===si;h+=`<div class="title-card" style="border-left-color:${p.color};${s?`background:${p.color}0d;border-color:${p.color};box-shadow:0 2px 12px ${p.color}22;`:''}" onclick="pT(${i})"><span class="title-num" style="background:${p.color}">${i+1}</span><span class="title-text">${esc(t)}</span>${s?`<span class="sel-badge" style="background:${p.color}">선택됨</span>`:''}</div>`;});h+=`</div></div>`;h+=`<div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">📝 최적화 포스팅</h2><button class="copy-btn" onclick="cP(this)">📋 복사</button></div><div class="post-box"><pre class="post-text">${esc(d.post)}</pre></div></div>`;h+=`<div class="section"><div class="section-head"><h2 class="section-title" style="color:${p.color}">🏷️ 최적화 ${kwL}</h2><button class="copy-btn" onclick="cK(this)">📋 복사</button></div><div class="kw-wrap">`;d.keywords.forEach(kw=>{h+=`<span class="kw" style="background:${p.color}12;color:${p.color};border-color:${p.color}33;">${esc(kw)}</span>`;});h+=`</div></div>`;document.getElementById('contentArea').innerHTML=h;}
+function pT(i){sti=i;renderSec();}
+function reGen(){setStep(2);document.getElementById('selectedBadge').innerHTML=`<span class="sp-badge" style="background:${sp.color}">${IC16[sp.id]} ${sp.name}</span><span class="sp-change" onclick="goHome()">다른 플랫폼 선택</span>`;document.getElementById('topicInput').placeholder=sp.ph;document.getElementById('genBtn').style.background=sp.color;document.getElementById('topicInput').focus();}
+
+function cp(t,b){const fb=()=>{const a=document.createElement('textarea');a.value=t;a.style.position='fixed';a.style.left='-9999px';document.body.appendChild(a);a.select();try{document.execCommand('copy');}catch{}document.body.removeChild(a);};try{navigator.clipboard.writeText(t).catch(fb);}catch{fb();}if(b){const o=b.textContent;b.textContent='✅ 복사됨';b.classList.add('copied');setTimeout(()=>{b.textContent=o;b.classList.remove('copied');},2000);}}
+function cT(b){cp(rd.titles[sti],b);}
+function cP(b){cp(rd.post,b);}
+function fmtKw(arr){return arr.map(k=>k.startsWith('#')?k:'#'+k.replace(/\s+/g,'')).join(' ');}
+function cK(b){cp(fmtKw(rd.keywords),b);}
+function copyAll(b){const p=sp,d=rd,kwL=p.id==='instagram'?'해시태그':'키워드';let c=`[${p.name}]\n\n📌 선택된 제목: ${d.titles[sti]}\n\n--- 전체 제목 후보 ---\n`;d.titles.forEach((t,i)=>c+=`${i+1}. ${t}\n`);c+=`\n--- 본문 ---\n${d.post}\n\n--- ${kwL} ---\n${fmtKw(d.keywords)}`;cp(c,b);}
+function esc(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML;}
+
+document.addEventListener('DOMContentLoaded',()=>{renderGrid();loadTheme();
+document.getElementById('topicInput').addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();generate();}});});
 </script>
 </body>
 </html>
