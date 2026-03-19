@@ -486,7 +486,7 @@ function loadTheme(){try{if(localStorage.getItem('theme')==='dark'){document.doc
  │  발급: https://aistudio.google.com/apikey               │
  └─────────────────────────────────────────────────────────┘
 */
-const GEMINI_API_KEY = 'AIzaSyBWETCP_FrG-2QtDXlJEarXXJUiQEfFC5w';
+const GEMINI_API_KEY = '이자리에 넣기';
 
 function setStep(n){for(let i=1;i<=3;i++){const d=document.getElementById('dot'+i),l=document.getElementById('label'+i);d.classList.remove('active','done');l.classList.remove('active','done');if(i<n){d.classList.add('done');l.classList.add('done');d.textContent='✓';}else if(i===n){d.classList.add('active');l.classList.add('active');d.textContent=i;}else d.textContent=i;}for(let i=1;i<=2;i++)document.getElementById('line'+i).classList.toggle('active',i<n);document.getElementById('step1').style.display=n===1?'block':'none';document.getElementById('step2').style.display=n===2?'block':'none';document.getElementById('step3').style.display=n===3?'block':'none';document.getElementById('loadingArea').style.display='none';document.getElementById('errorBox').style.display='none';}
 
